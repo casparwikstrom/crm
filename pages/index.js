@@ -2,23 +2,24 @@ import Link from '@/components/Link'
 import { PageSEO } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
-import { getAllFilesFrontMatter } from '@/lib/mdx'
 import formatDate from '@/lib/utils/formatDate'
 
 import NewsletterForm from '@/components/NewsletterForm'
 
-const MAX_DISPLAY = 5
+//pagination with max 3 posts per page
+const MAX_DISPLAY = 3
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter('blog')
+  const v = await fetch('http://localhost:3001/api/v1/videos')
+  const videos = await v.json()
 
-  return { props: { posts } }
+  return { props: { videos } }
 }
 
-export default function Home({ posts }) {
+export default function Home({ videos }) {
   return (
     <>
-      <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
+      <PageSEO name={siteMetadata.name} description={siteMetadata.description} />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
@@ -29,17 +30,17 @@ export default function Home({ posts }) {
           </p>
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {!posts.length && 'No posts found.'}
-          {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
-            const { slug, date, title, summary, tags } = frontMatter
+          {!videos.length && 'No videos found.'}
+          {videos.slice(0, MAX_DISPLAY).map((frontMatter) => {
+            const { id, name, url, tag } = frontMatter
             return (
-              <li key={slug} className="py-12">
+              <li key={id} className="py-12">
                 <article>
                   <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                     <dl>
                       <dt className="sr-only">Published on</dt>
                       <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                        <time dateTime={date}>{formatDate(date)}</time>
+                        {/* <time dateTime={date}>{formatDate(date)}</time> */}
                       </dd>
                     </dl>
                     <div className="space-y-5 xl:col-span-3">
@@ -47,27 +48,27 @@ export default function Home({ posts }) {
                         <div>
                           <h2 className="text-2xl font-bold leading-8 tracking-tight">
                             <Link
-                              href={`/videos/${slug}`}
+                              href={`/videos/${id}`}
                               className="text-gray-900 dark:text-gray-100"
                             >
-                              {title}
+                              {name}
                             </Link>
                           </h2>
-                          <div className="flex flex-wrap">
-                            {tags.map((tag) => (
+                          {/* <div className="flex flex-wrap">
+                            {tag.map((tag) => (
                               <Tag key={tag} text={tag} />
                             ))}
-                          </div>
+                          </div> */}
                         </div>
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                          {summary}
+                          {url}
                         </div>
                       </div>
                       <div className="text-base font-medium leading-6">
                         <Link
-                          href={`/blog/${slug}`}
+                          href={`/blog/${id}`}
                           className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                          aria-label={`Read "${title}"`}
+                          aria-label={`Read "${name}"`}
                         >
                           Read more &rarr;
                         </Link>
@@ -80,14 +81,14 @@ export default function Home({ posts }) {
           })}
         </ul>
       </div>
-      {posts.length > MAX_DISPLAY && (
+      {videos.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base font-medium leading-6">
           <Link
             href="/videos"
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label="all posts"
           >
-            All Posts &rarr;
+            All videos &rarr;
           </Link>
         </div>
       )}

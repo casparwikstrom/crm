@@ -20,6 +20,10 @@ export default function App({ Component, pageProps }) {
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
+        {/* <meta
+          http-equiv="Content-Security-Policy"
+          content="script-src 'self' http://www.youtube.com"
+        /> */}
       </Head>
       {isDevelopment && isSocket && <ClientReload />}
       <Analytics />

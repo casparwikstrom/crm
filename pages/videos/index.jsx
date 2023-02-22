@@ -1,31 +1,33 @@
-import { getAllFilesFrontMatter } from '@/lib/mdx'
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayout'
 import { PageSEO } from '@/components/SEO'
 
-export const POSTS_PER_PAGE = 5
+export const VIDEOS_PER_PAGE = 3
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter('blog')
-  console.log(posts)
-  const initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE)
+  const v = await fetch('http://localhost:3001/api/v1/videos')
+  const videos = await v.json()
+
+  const initialDisplayVideos = videos.slice(0, VIDEOS_PER_PAGE)
   const pagination = {
     currentPage: 1,
-    totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
+    /* totalPages: Math.ceil(videos.length / VIDEOS_PER_PAGE), */
+    totalPages: 1,
   }
 
-  return { props: { initialDisplayPosts, posts, pagination } }
+  return { props: { videos, initialDisplayVideos, pagination } }
 }
 
-export default function Blog({ posts, initialDisplayPosts, pagination }) {
+export default function Blog({ videos, initialDisplayVideos, pagination }) {
+  console.log(videos)
   return (
     <>
       <PageSEO title={`Video - ${siteMetadata.author}`} description={siteMetadata.description} />
       <ListLayout
-        posts={posts}
-        initialDisplayPosts={initialDisplayPosts}
+        videos={videos}
+        initialDisplayVideos={initialDisplayVideos}
         pagination={pagination}
-        title="All Posts"
+        title="All posts"
       />
     </>
   )
