@@ -3,11 +3,20 @@ import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
 import YouTube from 'react-youtube'
 
+import ReactMarkdown from 'react-markdown'
+
 const DEFAULT_LAYOUT = 'PostLayout'
 
 function YouTubeVideo({ url }) {
   const videoId = url.split('v=')[1]
-  return <YouTube videoId={videoId} />
+
+  const opts = {
+    playerVars: {
+      // Enable autoplay
+      autoplay: 1,
+    },
+  }
+  return <YouTube videoId={videoId} opts={opts} />
 }
 
 export async function getStaticPaths() {
@@ -41,9 +50,12 @@ export async function getStaticProps({ params }) {
 export default function Blog({ vid }) {
   return (
     <>
-      <h1>{vid.name}</h1>
-      <p>{vid.summary}</p>
+      <PageTitle>
+        <div dangerouslySetInnerHTML={{ __html: vid.title }} />
+      </PageTitle>
+      <div dangerouslySetInnerHTML={{ __html: vid.description }} />
       <YouTubeVideo url={vid.url} />
+      <div dangerouslySetInnerHTML={{ __html: vid.summary }} />
     </>
   )
 }
