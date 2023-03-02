@@ -4,6 +4,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { useState } from 'react'
 import Pagination from '@/components/Pagination'
 import formatDate from '@/lib/utils/formatDate'
+import Image from '../components/Image'
 
 export default function ListLayout({ videos, title, initialDisplayVideos = [], pagination }) {
   const [searchValue, setSearchValue] = useState('')
@@ -21,7 +22,7 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          <h1 className="md:leading-14 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl">
             {title}
           </h1>
           <div className="relative max-w-lg">
@@ -50,32 +51,45 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
         </div>
         <ul>
           {!filteredBlogVideos.length && 'No Videos found.'}
-          {displayVideos.map((frontMatter) => {
-            const { id, date, name, summary, tags } = frontMatter
+          {displayVideos.map((video) => {
+            const tags = video?.keywords.slice(1, 10)
+            const thumbnails = video?.video_info.thumbnail.thumbnails
             return (
-              <li key={id} className="py-4">
-                <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+              <li key={video?.id} className="py-4">
+                <article className="xl:grid xl:grid-cols-4  xl:space-y-0">
                   <dl>
-                    <dt className="sr-only">Published on</dt>
+                    <Link href={`/videos/${video.id}`} aria-label={`Link to ${video?.name}`}>
+                      <Image
+                        alt={video?.name}
+                        src={thumbnails[1]?.url}
+                        className="object-cover object-center md:h-36 lg:h-48"
+                        width={544}
+                        height={306}
+                      />
+                    </Link>
                     <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date)}</time>
+                      Published on: <br />{' '}
+                      <time dateTime={video.created_at}>{formatDate(video.created_at)}</time>
                     </dd>
                   </dl>
                   <div className="space-y-3 xl:col-span-3">
                     <div>
                       <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                        <Link href={`/blog/${id}`} className="text-gray-900 dark:text-gray-100">
-                          {name}
+                        <Link
+                          href={`/videos/${video.id}`}
+                          className="text-gray-900 dark:text-gray-100"
+                        >
+                          {video?.name}
                         </Link>
                       </h3>
                       <div className="flex flex-wrap">
-                        {/*  {tags.map((tag) => (
+                        {tags.map((tag) => (
                           <Tag key={tag} text={tag} />
-                        ))} */}
+                        ))}
                       </div>
                     </div>
                     <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                      {summary}
+                      {video?.summary.substr(0, 200) + '...'}
                     </div>
                   </div>
                 </article>

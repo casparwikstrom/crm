@@ -19,7 +19,6 @@ export async function getStaticProps() {
 }
 
 export default function Blog({ videos, initialDisplayVideos, pagination }) {
-  console.log(videos)
   return (
     <>
       <PageSEO title={`Video - ${siteMetadata.author}`} description={siteMetadata.description} />

@@ -15,6 +15,7 @@ function YouTubeVideo({ url }) {
       // Enable autoplay
       autoplay: 1,
     },
+    width: '100%',
   }
   return <YouTube videoId={videoId} opts={opts} />
 }
@@ -51,11 +52,11 @@ export default function Blog({ vid }) {
   return (
     <>
       <PageTitle>
-        <div dangerouslySetInnerHTML={{ __html: vid.title }} />
+        <div dangerouslySetInnerHTML={{ __html: vid.name }} />
       </PageTitle>
-      <div dangerouslySetInnerHTML={{ __html: vid.description }} />
+      <div className="py-12" dangerouslySetInnerHTML={{ __html: vid.description }} />
       <YouTubeVideo url={vid.url} />
-      <div dangerouslySetInnerHTML={{ __html: vid.summary }} />
+      <div className="py-12" dangerouslySetInnerHTML={{ __html: vid.summary }} />
     </>
   )
 }

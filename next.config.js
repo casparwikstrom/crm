@@ -88,4 +88,7 @@ module.exports = withBundleAnalyzer({
 
     return config
   },
+  images: {
+    domains: ['i.ytimg.com'],
+  },
 })

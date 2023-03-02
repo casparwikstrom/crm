@@ -6,6 +6,11 @@
  */
 
 /* Code title styles */
+
+* {
+  border: solid 0.5px red;
+}
+
 .remark-code-title {
   @apply rounded-t bg-gray-700 px-5 py-3 font-mono text-sm font-bold text-gray-200;
 }
@@ -48,6 +53,7 @@
  * Ported by Sara vieria [@SaraVieira]
  * Added by Souvik Mandal [@SimpleIndian]
  */
+
 .token.comment,
 .token.prolog,
 .token.cdata {
