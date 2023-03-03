@@ -28,7 +28,7 @@ export async function getStaticProps(context) {
   } = context
 
   
-  const v = await fetch('http://localhost:3001/api/v1/videos')
+  const v = await fetch('https://guarded-beach-57115.herokuapp.com/api/v1/videos')
   const videos = await v.json()
 
   const pageNumber = parseInt(page)
