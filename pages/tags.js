@@ -7,6 +7,7 @@ import kebabCase from '@/lib/utils/kebabCase'
 
 export async function getStaticProps() {
   const tags = await getAllTags('blog')
+  // TODO: get all tags from api
 
   return { props: { tags } }
 }
