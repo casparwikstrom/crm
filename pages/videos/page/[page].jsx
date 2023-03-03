@@ -3,7 +3,6 @@ import siteMetadata from '@/data/siteMetadata'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
 import ListLayout from '@/layouts/ListLayout'
 
-
 export const POSTS_PER_PAGE = 3
 
 export async function getStaticPaths() {
