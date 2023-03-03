@@ -14,6 +14,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 //   font-src 'self';
 //   frame-src giscus.app
 // `
+
+
 const ContentSecurityPolicy = `
   script-src 'self' 'unsafe-eval' 'unsafe-inline' http://www.youtube.com;
 `
@@ -91,4 +93,8 @@ module.exports = withBundleAnalyzer({
   images: {
     domains: ['i.ytimg.com'],
   },
+
+  publicRuntimeConfig: {
+    isDevelopment: process.env.NODE_ENV === 'development'
+  }
 })

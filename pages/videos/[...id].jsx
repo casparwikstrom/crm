@@ -2,10 +2,16 @@ import fs from 'fs'
 import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
 import YouTube from 'react-youtube'
+import getConfig from 'next/config'
 
 import ReactMarkdown from 'react-markdown'
 
 const DEFAULT_LAYOUT = 'PostLayout'
+
+const { publicRuntimeConfig } = getConfig()
+const isDevelopment = publicRuntimeConfig.isDevelopment
+
+
 
 function YouTubeVideo({ url }) {
   const videoId = url.split('v=')[1]
@@ -21,7 +27,9 @@ function YouTubeVideo({ url }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch('http://localhost:3001/api/v1/videos')
+  // const res = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://guarded-beach-57115.herokuapp.com/")
+
+  const res = await fetch("https://guarded-beach-57115.herokuapp.com/api/v1/videos")
   const videos = await res.json()
 
   return {
@@ -36,7 +44,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   // Fetch videos from API
-  const res = await fetch(`http://localhost:3001/api/v1/videos/${params.id}`)
+  // const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.id}` : `https://guarded-beach-57115.herokuapp.com/${params.id}` )
+  const res = await fetch(`https://guarded-beach-57115.herokuapp.com/api/v1/videos/${params.id}`)
   const vid = await res.json()
 
   // rss

@@ -10,7 +10,7 @@ import NewsletterForm from '@/components/NewsletterForm'
 const MAX_DISPLAY = 3
 
 export async function getStaticProps() {
-  const v = await fetch('http://localhost:3001/api/v1/videos')
+  const v = await fetch("https://guarded-beach-57115.herokuapp.com/api/v1/videos")
   const videos = await v.json()
 
   return { props: { videos } }
