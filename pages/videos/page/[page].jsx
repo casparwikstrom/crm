@@ -5,7 +5,7 @@ import ListLayout from '@/layouts/ListLayout'
 export const VIDEOS_PER_PAGE = 3
 
 export async function getStaticPaths() {
-  const v = await fetch('http://localhost:3001/api/v1/videos')
+  const v = await fetch('https://guarded-beach-57115.herokuapp.com/api/v1/videos')
   const videos = await v.json()
   
   const totalPages = Math.ceil(videos.length / VIDEOS_PER_PAGE)

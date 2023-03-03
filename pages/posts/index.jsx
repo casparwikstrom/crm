@@ -1,4 +1,3 @@
-// fetch videos from http://localhost:3001/api/v1/videos and render them in a list
 import React from 'react'
 import Link from 'next/link'
 
