@@ -60,6 +60,7 @@ export default function Blog({ vid }) {
       </PageTitle>
       <div className="py-12" dangerouslySetInnerHTML={{ __html: vid.description }} />
       <YouTubeVideo url={vid.url} />
+      
       <div className="py-12" dangerouslySetInnerHTML={{ __html: vid.summary }} />
     </>
   )
