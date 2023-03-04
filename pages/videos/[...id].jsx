@@ -3,15 +3,10 @@ import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
 import YouTube from 'react-youtube'
 import getConfig from 'next/config'
-
-import ReactMarkdown from 'react-markdown'
-
 const DEFAULT_LAYOUT = 'PostLayout'
 
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
-
-
 
 function YouTubeVideo({ url }) {
   const videoId = url.split('v=')[1]
