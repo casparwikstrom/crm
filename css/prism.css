@@ -6,9 +6,8 @@
  */
 
 /* Code title styles */
-
 * {
-  border: solid 0.5px red;
+  /* border: solid 0.5px red; */
 }
 
 .remark-code-title {

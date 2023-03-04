@@ -1,11 +1,11 @@
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
+  title: 'Documan: Every documentary you want',
   author: 'Peter Stern',
-  headerTitle: 'Youtube b',
-  description: 'A blog created with Next.js and Tailwind.css',
+  headerTitle: 'Documan',
+  description: 'Discover the best documentaries from independent filmmakers',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
+  siteUrl: 'https://youtubebbb.vercel.app/',
   siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
