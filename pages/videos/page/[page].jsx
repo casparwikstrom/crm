@@ -2,7 +2,6 @@ import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayout'
 import getConfig from 'next/config'
-import { useRouter } from 'next/router'
 
 
 export const VIDEOS_PER_PAGE = 3

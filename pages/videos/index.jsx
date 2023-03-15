@@ -26,8 +26,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function Blog({ videos, initialDisplayVideos, pagination }) {
-  const router = useRouter()
-  const queryValue = router.query.query
 
   return (
     <>
