@@ -2,20 +2,23 @@ import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayout'
 import getConfig from 'next/config'
+import { useRouter } from 'next/router'
+
 
 export const VIDEOS_PER_PAGE = 3
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
 
 export async function getStaticPaths() {
-  const v = await fetch('https://guarded-beach-57115.herokuapp.com/api/v1/videos')
+
+  const v = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://guarded-beach-57115.herokuapp.com/api/v1/videos")
   const videos = await v.json()
   
   const totalPages = Math.ceil(videos.length / VIDEOS_PER_PAGE)
   const paths = Array.from({ length: totalPages }, (_, i) => ({
 
     params: { 
-      page: (i + 1).toString() 
+      page: (i + 1).toString(),
     },
   }))
 
@@ -30,7 +33,8 @@ export async function getStaticProps(context) {
     params: { page },
   } = context
 
-  
+
+
   const v = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://guarded-beach-57115.herokuapp.com/api/v1/videos")
   const videos = await v.json()
 

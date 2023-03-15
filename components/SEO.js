@@ -3,8 +3,9 @@ import { useRouter } from 'next/router'
 import siteMetadata from '@/data/siteMetadata'
 import Script from 'next/script'
 
-const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl }) => {
+const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl, ...vid }) => {
   const router = useRouter()
+
   return (
     <Head>
       <title>{title}</title>
@@ -72,46 +73,45 @@ export const TagSEO = ({ title, description }) => {
   )
 }
 
-export const BlogSEO = ({
-  authorDetails,
-  title,
-  summary,
-  date,
-  lastmod,
-  url,
-  images = [],
-  canonicalUrl,
-}) => {
+export const BlogSEO = ({ url, ...vid }) => {
+  const truncSummary = vid?.summary.length > 150 ? vid?.summary.slice(0, 150) : ""
+  let desc = vid?.description ? vid?.description : truncSummary
   const router = useRouter()
-  const publishedAt = new Date(date).toISOString()
-  const modifiedAt = new Date(lastmod || date).toISOString()
+  const images = vid.video_info.thumbnail.thumbnails
+  const publishedAt = new Date(vid?.created_at).toISOString()
+
+  const modifiedAt = new Date(vid?.updated_at || vid?.created_at).toISOString()
   let imagesArr =
     images.length === 0
       ? [siteMetadata.socialBanner]
       : typeof images === 'string'
-      ? [images]
-      : images
+        ? [images]
+        : images
 
   const featuredImages = imagesArr.map((img) => {
     return {
       '@type': 'ImageObject',
-      url: img.includes('http') ? img : siteMetadata.siteUrl + img,
+      url: img.url.includes('http') ? img.url : siteMetadata.siteUrl + img.url,
     }
   })
 
-  let authorList
-  if (authorDetails) {
-    authorList = authorDetails.map((author) => {
-      return {
-        '@type': 'Person',
-        name: author.name,
-      }
-    })
-  } else {
-    authorList = {
-      '@type': 'Person',
-      name: siteMetadata.author,
-    }
+  // let authorList
+  // if (authorDetails) {
+  //   authorList = authorDetails.map((author) => {
+  //     return {
+  //       '@type': 'Person',
+  //       name: author.name,
+  //     }
+  //   })
+  // } else {
+  //   authorList = {
+  //     '@type': 'Person',
+  //     name: siteMetadata.author,
+  //   }
+  // }
+  let authorList = {
+    '@type': 'Person',
+    name: siteMetadata.author,
   }
 
   const structuredData = {
@@ -121,10 +121,10 @@ export const BlogSEO = ({
       '@type': 'WebPage',
       '@id': url,
     },
-    headline: title,
+    headline: vid.name,
     image: featuredImages,
-    datePublished: publishedAt,
-    dateModified: modifiedAt,
+    datePublished: vid?.created_at,
+    dateModified: vid?.updated_at,
     author: authorList,
     publisher: {
       '@type': 'Organization',
@@ -134,7 +134,7 @@ export const BlogSEO = ({
         url: `${siteMetadata.siteUrl}${siteMetadata.siteLogo}`,
       },
     },
-    description: summary,
+    description: desc,
   }
 
   const twImageUrl = featuredImages[0].url
@@ -142,16 +142,17 @@ export const BlogSEO = ({
   return (
     <>
       <CommonSEO
-        title={title}
-        description={summary}
+        title={vid?.name}
+        description={desc}
         ogType="article"
         ogImage={featuredImages}
         twImage={twImageUrl}
-        canonicalUrl={canonicalUrl}
+        {...vid}
+        // canonicalUrl={canonicalUrl}
       />
       <Head>
-        {date && <meta property="article:published_time" content={publishedAt} />}
-        {lastmod && <meta property="article:modified_time" content={modifiedAt} />}
+        {vid?.created_at && <meta property="article:published_time" content={publishedAt} />}
+        {vid?.updated_at && <meta property="article:modified_time" content={modifiedAt} />}
       </Head>
       <Script
         id="seo-script"
