@@ -34,7 +34,7 @@ export async function getStaticPaths() {
   return {
     paths: videos.map((video) => ({
       params: {
-        slug: [video.slug],
+        slug: [video.slug.toString()],
       },
     })),
     fallback: false,
