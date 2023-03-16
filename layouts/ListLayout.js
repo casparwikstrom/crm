@@ -58,7 +58,7 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
               <li key={video?.id} className="py-4">
                 <article className="xl:grid xl:grid-cols-4  xl:space-y-0">
                   <dl className="mx-3">
-                    <Link href={`/videos/${video.id}`} aria-label={`Link to ${video?.name}`}>
+                    <Link href={`/videos/${video.slug}`} aria-label={`Link to ${video?.name}`}>
                       <Image
                         alt={video?.name}
                         src={thumbnails[1]?.url}
