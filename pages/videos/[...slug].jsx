@@ -34,7 +34,7 @@ export async function getStaticPaths() {
   return {
     paths: videos.map((video) => ({
       params: {
-        id: [video.slug],
+        slug: [video.slug],
       },
     })),
     fallback: false,
@@ -43,7 +43,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   // Fetch videos from API
-  const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.id}` : `https://guarded-beach-57115.herokuapp.com/api/v1/videos/${params.id}` )
+  const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.slug}` : `https://guarded-beach-57115.herokuapp.com/api/v1/videos/${params.slug}` )
   const vid = await res.json()
 
   // rss
