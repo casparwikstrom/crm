@@ -76,7 +76,7 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
                     <div>
                       <h3 className="text-2xl font-bold leading-8 tracking-tight">
                         <Link
-                          href={`/videos/${video.id}`}
+                          href={`/videos/${video.slug}`}
                           className="text-gray-900 dark:text-gray-100"
                         >
                           {video?.name}

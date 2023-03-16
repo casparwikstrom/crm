@@ -74,7 +74,7 @@ export const TagSEO = ({ title, description }) => {
 }
 
 export const BlogSEO = ({ url, ...vid }) => {
-  const truncSummary = vid?.summary.length > 150 ? vid?.summary.slice(0, 150) : ""
+  const truncSummary = vid?.summary?.length > 150 ? vid?.summary.slice(0, 150) : ""
   let desc = vid?.description ? vid?.description : truncSummary
   const router = useRouter()
   const images = vid.video_info.thumbnail.thumbnails

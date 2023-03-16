@@ -1,4 +1,4 @@
-import fs from 'fs'
+
 import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
 import YouTube from 'react-youtube'
@@ -34,7 +34,7 @@ export async function getStaticPaths() {
   return {
     paths: videos.map((video) => ({
       params: {
-        id: [video.id.toString()],
+        id: [video.slug],
       },
     })),
     fallback: false,
@@ -47,10 +47,10 @@ export async function getStaticProps({ params }) {
   const vid = await res.json()
 
   // rss
-  if (vid.length > 0) {
-    const rss = generateRss(vid)
-    fs.writeFileSync('./public/feed.xml', rss)
-  }
+  // if (vid.length > 0) {
+  //   const rss = generateRss(vid)
+  //   fs.writeFileSync('./public/feed.xml', rss)
+  // }
 
   return { props: { vid } }
 }
@@ -60,7 +60,7 @@ export default function Blog({ vid }) {
   return (
     <>
       <BlogSEO
-        url={`${siteMetadata.siteUrl}/videos/${toString(vid.id)}`}
+        url={`${siteMetadata.siteUrl}/videos/${toString(vid.slug)}`}
        // authorDetails={authorDetails}
         type='article'
         {...vid}

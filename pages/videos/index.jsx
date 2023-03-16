@@ -3,7 +3,8 @@ import ListLayout from '@/layouts/ListLayout'
 import { PageSEO } from '@/components/SEO'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
-
+import fs from 'fs'
+import generateRss from '@/lib/generate-rss'
 
 export const VIDEOS_PER_PAGE = 2
 const { publicRuntimeConfig } = getConfig()
@@ -20,6 +21,12 @@ export async function getServerSideProps(context) {
     currentPage: 1,
     totalPages: Math.ceil(videos.length / VIDEOS_PER_PAGE),
     // totalPages: 1,
+  }
+
+  if (videos.length > 0) {
+
+    const rss = generateRss(videos)
+    fs.writeFileSync('./public/feed.xml', rss)
   }
 
   return { props: { videos, initialDisplayVideos, pagination } }
