@@ -7,7 +7,7 @@ const Posts = (props) => (
     <ul>
       {props.videos.map((video) => (
         <li key={video.id}>
-          <Link href="/videos/[id]" as={`/videos/${video.id}`}>
+          <Link href="/videos/[slug]" as={`/videos/${video.slug}`}>
             <a>{video.name}</a>
           </Link>
         </li>
