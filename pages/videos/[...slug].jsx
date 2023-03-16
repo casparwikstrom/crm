@@ -49,7 +49,7 @@ export async function getStaticProps({ params }) {
   // rss
   if (vid.length > 0) {
     const rss = generateRss(vid)
-    fs.writeFileSync('./public/feed.xml', rss)
+    fs.writeFileSync("../public/rss.xml", rss)
   }
 
   return { props: { vid } }

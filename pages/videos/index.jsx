@@ -25,7 +25,7 @@ export async function getServerSideProps(context) {
   if (videos.length > 0) {
 
     const rss = generateRss(videos)
-    fs.writeFileSync('./public/feed.xml', rss)
+    fs.writeFileSync("../public/rss.xml", rss)
   }
 
   return { props: { videos, initialDisplayVideos, pagination } }
