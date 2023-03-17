@@ -95,6 +95,7 @@ module.exports = withBundleAnalyzer({
   },
 
   publicRuntimeConfig: {
-    isDevelopment: process.env.NODE_ENV === 'development'
+    isDevelopment: process.env.NODE_ENV === 'development',
+    domain: "zmartare"
   }
 })
