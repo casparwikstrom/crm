@@ -13,7 +13,7 @@ const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
 
 //pagination with max 3 posts per page
-const MAX_DISPLAY = 3
+
 export const VIDEOS_PER_PAGE = 10
 
 export async function getStaticProps() {

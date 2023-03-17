@@ -3,18 +3,20 @@ import { useRouter } from 'next/router'
 import siteMetadata from '@/data/siteMetadata'
 import Script from 'next/script'
 
-const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl, ...vid }) => {
+const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, ...vid }) => {
   const router = useRouter()
 
+
   return (
+
     <Head>
       <title>{title}</title>
       <meta name="robots" content="follow, index" />
-      <meta name="description" content={description} />
+      <meta name="description" content={desc} />
       <meta property="og:url" content={`${siteMetadata.siteUrl}${router.asPath}`} />
       <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={siteMetadata.title} />
-      <meta property="og:description" content={description} />
+      <meta property="og:description" content={desc} />
       <meta property="og:title" content={title} />
       {ogImage.constructor.name === 'Array' ? (
         ogImage.map(({ url }) => <meta property="og:image" content={url} key={url} />)
@@ -24,7 +26,7 @@ const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl,
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content={siteMetadata.twitter} />
       <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:description" content={desc} />
       <meta name="twitter:image" content={twImage} />
       <link
         rel="canonical"
@@ -75,8 +77,7 @@ export const TagSEO = ({ title, description }) => {
 
 export const BlogSEO = ({ url, ...vid }) => {
   let truncSummary = vid?.summary?.length > 150 ? vid?.summary.slice(0, 150) : ""
-  let desc = vid?.description ? vid?.description : truncSummary
-
+  let description = vid?.description?? truncSummary
   const images = vid.video_info.thumbnail.thumbnails
   const publishedAt = new Date(vid?.created_at).toISOString()
 
@@ -134,8 +135,10 @@ export const BlogSEO = ({ url, ...vid }) => {
         url: `${siteMetadata.siteUrl}${siteMetadata.siteLogo}`,
       },
     },
-    description: desc,
+    description: description,
   }
+
+  console.log(description)
 
   const twImageUrl = featuredImages[0].url
 
@@ -143,13 +146,11 @@ export const BlogSEO = ({ url, ...vid }) => {
     <>
       <CommonSEO
         title={vid?.name}
-        description={desc}
+        desc={description}
         ogType="article"
         ogImage={featuredImages}
         twImage={twImageUrl}
-        {...vid}
-        // canonicalUrl={canonicalUrl}
-      />
+        />
       <Head>
         {vid?.created_at && <meta property="article:published_time" content={publishedAt} />}
         {vid?.updated_at && <meta property="article:modified_time" content={modifiedAt} />}
