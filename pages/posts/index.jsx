@@ -17,7 +17,7 @@ const Posts = (props) => (
 )
 
 Posts.getInitialProps = async function () {
-  const res = await fetch("https://guarded-beach-57115.herokuapp.com/api/v1/videos")
+  const res = await fetch("https://you-b.herokuapp.com/api/v1/videos")
   const data = await res.json()
 
   console.log(`Show data fetched. Count: ${data.length}`)

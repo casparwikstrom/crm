@@ -33,7 +33,6 @@ export async function getStaticProps(context) {
   } = context
 
 
-
   const v = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://you-b.herokuapp.com/api/v1/videos")
   const videos = await v.json()
 

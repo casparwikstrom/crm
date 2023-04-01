@@ -11,7 +11,7 @@ const isDevelopment = publicRuntimeConfig.isDevelopment
 
 export async function getServerSideProps(context) {
   const tags  = context.query.tags
-  const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?keywords=${tags}` : `https://guarded-beach-57115.herokuapp.com/api/v1/videos?keywords=${tags}`)
+  const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?keywords=${tags}` : `https://you-b.herokuapp.com/api/v1/videos?keywords=${tags}`)
   const videos = await v.json()
 
   const initialDisplayVideos = videos.slice(0, VIDEOS_PER_PAGE)
