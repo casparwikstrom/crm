@@ -6,7 +6,6 @@ import Script from 'next/script'
 const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, ...vid }) => {
   const router = useRouter()
 
-
   return (
 
     <Head>

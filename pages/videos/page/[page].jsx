@@ -10,7 +10,7 @@ const isDevelopment = publicRuntimeConfig.isDevelopment
 
 export async function getStaticPaths() {
 
-  const v = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://guarded-beach-57115.herokuapp.com/api/v1/videos")
+  const v = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://you-b.herokuapp.com/api/v1/videos")
   const videos = await v.json()
   
   const totalPages = Math.ceil(videos.length / VIDEOS_PER_PAGE)
@@ -34,7 +34,7 @@ export async function getStaticProps(context) {
 
 
 
-  const v = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://guarded-beach-57115.herokuapp.com/api/v1/videos")
+  const v = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://you-b.herokuapp.com/api/v1/videos")
   const videos = await v.json()
 
   const pageNumber = parseInt(page)
