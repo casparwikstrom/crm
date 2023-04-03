@@ -74,15 +74,18 @@ export const TagSEO = ({ title, description }) => {
   )
 }
 
-export const BlogSEO = ({ url, ...vid }) => {
+export const BlogSEO = ({ url, thumbnails, ...vid }) => {
+  console.log(thumbnails);
+  const images = thumbnails ?? [];
+
   let truncSummary = vid?.summary?.length > 150 ? vid?.summary.slice(0, 150) : ""
-  let description = vid?.description?? truncSummary
-  const images = vid.video_info.thumbnail.thumbnails
+  let description = vid?.description ?? truncSummary
+
   const publishedAt = new Date(vid?.created_at).toISOString()
 
   const modifiedAt = new Date(vid?.updated_at || vid?.created_at).toISOString()
   let imagesArr =
-    images.length === 0
+    images?.length === 0
       ? [siteMetadata.socialBanner]
       : typeof images === 'string'
         ? [images]
@@ -149,18 +152,18 @@ export const BlogSEO = ({ url, ...vid }) => {
         ogType="article"
         ogImage={featuredImages}
         twImage={twImageUrl}
-        />
+      />
       <Head>
         {vid?.created_at && <meta property="article:published_time" content={publishedAt} />}
         {vid?.updated_at && <meta property="article:modified_time" content={modifiedAt} />}
       </Head>
-      <Script
+      {/* <Script
         id="seo-script"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData, null, 2),
         }}
-      />
+      /> */}
     </>
   )
 }

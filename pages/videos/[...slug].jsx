@@ -63,6 +63,7 @@ export default function Blog({ vid }) {
         url={`${siteMetadata.siteUrl}/videos/${toString(vid.slug)}`}
        // authorDetails={authorDetails}
         type='article'
+        thumbnails={vid?.video_info?.thumbnail?.thumbnails}
         {...vid}
       />
       <PageTitle>
