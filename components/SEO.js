@@ -75,9 +75,7 @@ export const TagSEO = ({ title, description }) => {
 }
 
 export const BlogSEO = ({ url, thumbnails, ...vid }) => {
-  console.log(thumbnails);
   const images = thumbnails ?? [];
-
   let truncSummary = vid?.summary?.length > 150 ? vid?.summary.slice(0, 150) : ""
   let description = vid?.description ?? truncSummary
 
@@ -157,13 +155,13 @@ export const BlogSEO = ({ url, thumbnails, ...vid }) => {
         {vid?.created_at && <meta property="article:published_time" content={publishedAt} />}
         {vid?.updated_at && <meta property="article:modified_time" content={modifiedAt} />}
       </Head>
-      {/* <Script
+      <Script
         id="seo-script"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData, null, 2),
         }}
-      /> */}
+      />
     </>
   )
 }
