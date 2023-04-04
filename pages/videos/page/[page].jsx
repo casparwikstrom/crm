@@ -4,7 +4,7 @@ import ListLayout from '@/layouts/ListLayout'
 import getConfig from 'next/config'
 
 
-export const VIDEOS_PER_PAGE = 3
+export const VIDEOS_PER_PAGE = 10
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
 
@@ -37,7 +37,7 @@ export async function getStaticProps(context) {
   const videos = await v.json()
 
   const pageNumber = parseInt(page)
-  const initialDisplayPosts = videos.slice(
+  const initialDisplayVideos = videos.slice(
     VIDEOS_PER_PAGE * (pageNumber - 1),
     VIDEOS_PER_PAGE * pageNumber
   )
@@ -49,19 +49,19 @@ export async function getStaticProps(context) {
   return {
     props: {
       videos,
-      initialDisplayPosts,
+      initialDisplayVideos,
       pagination,
     },
   }
 }
 
-export default function PostPage({ videos, initialDisplayPosts, pagination }) {
+export default function PostPage({ videos, initialDisplayVideos, pagination }) {
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <ListLayout
         videos={videos}
-        initialDisplayPosts={initialDisplayPosts}
+        initialDisplayVideos={initialDisplayVideos}
         pagination={pagination}
         title="All Videos"
       />
