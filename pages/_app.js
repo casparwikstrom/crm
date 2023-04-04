@@ -20,7 +20,10 @@ export default function App({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
       <Head>
+        
         <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta name="ahrefs-site-verification" content="7a427c46c8950ff0b30305ca900d1f016dfedfad242545b7a0bb6f6308b66406"/>
+
         {/* <meta
           http-equiv="Content-Security-Policy"
           content="script-src 'self' http://www.youtube.com"
