@@ -5,7 +5,8 @@ import Script from 'next/script'
 
 const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, ...vid }) => {
   const router = useRouter()
-
+  const url = "/videos/he-escaped-africa-fight-the-ufc-francis-ngannou-documentary";
+  const path = url.substring(1);
   return (
 
     <Head>
@@ -27,9 +28,10 @@ const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, ...vid
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={desc} />
       <meta name="twitter:image" content={twImage} />
+      
       <link
         rel="canonical"
-        href={canonicalUrl ? canonicalUrl : `${siteMetadata.siteUrl}${router.asPath}`}
+        href={canonicalUrl ? canonicalUrl : `${siteMetadata.siteUrl}${router.asPath.substring(1)}`}
       />
     </Head>
   )
@@ -150,6 +152,7 @@ export const BlogSEO = ({ url, thumbnails, ...vid }) => {
         ogType="article"
         ogImage={featuredImages}
         twImage={twImageUrl}
+        
       />
       <Head>
         {vid?.created_at && <meta property="article:published_time" content={publishedAt} />}
