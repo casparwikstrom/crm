@@ -43,6 +43,11 @@ const siteMetadata = require('../data/siteMetadata')
                   .replace('.md', '')
                   .replace('/feed.xml', '')
                 const route = path === '/index' ? '' : path
+                
+                const url = `${siteMetadata.siteUrl}${route}`
+
+                // Remove trailing slash if present
+                const cleanUrl = url.endsWith('/') ? url.slice(0, -1) : url
 
                 if (page.search('pages/404.') > -1 || page.search(`pages/blog/[...slug].`) > -1) {
                   return
