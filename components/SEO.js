@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import siteMetadata from '@/data/siteMetadata'
 import Script from 'next/script'
 
+
 const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, ...vid }) => {
   const router = useRouter()
   const url = "/videos/he-escaped-africa-fight-the-ufc-francis-ngannou-documentary";
@@ -28,7 +29,6 @@ const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, ...vid
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={desc} />
       <meta name="twitter:image" content={twImage} />
-      
       <link
         rel="canonical"
         href={canonicalUrl ? canonicalUrl : `${siteMetadata.siteUrl}${router.asPath.substring(1)}`}
