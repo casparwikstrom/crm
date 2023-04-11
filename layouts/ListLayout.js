@@ -53,19 +53,21 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
           {!filteredBlogVideos.length && 'No Videos found.'}
           {displayVideos.map((video) => {
             const tags = video?.keywords.slice(1, 10)
-            const thumbnails = video?.video_info.thumbnail.thumbnails
+            const thumbnails = video?.video_info?.thumbnail?.thumbnails
             return (
               <li key={video?.id} className="py-4">
                 <article className="xl:grid xl:grid-cols-4  xl:space-y-0">
                   <dl className="mx-3">
                     <Link href={`/videos/${video.slug}`} aria-label={`Link to ${video?.name}`}>
-                      <Image
+                      {thumbnails ? (<Image
                         alt={video?.name}
                         src={thumbnails[1]?.url}
                         className="object-cover object-center md:h-36 lg:h-48"
                         width={544}
                         height={306}
-                      />
+                      />)
+                    : "notjing"}
+                      
                     </Link>
                     <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                       Published on: <br />{' '}
