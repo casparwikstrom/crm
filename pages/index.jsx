@@ -10,8 +10,9 @@ import ListLayout from '@/layouts/ListLayout';
 const { publicRuntimeConfig } = getConfig();
 const isDevelopment = publicRuntimeConfig.isDevelopment;
 //pagination with max 10 posts per page
-
+// const domain = publicRuntimeConfig.domain
 export const VIDEOS_PER_PAGE = 10;
+
 
 
 export async function getStaticProps() {
