@@ -9,6 +9,7 @@ import siteMetadata from '@/data/siteMetadata'
 const DEFAULT_LAYOUT = 'PostLayout'
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
+
 const domain = process.env.DOMAIN_URL
 
 
@@ -44,8 +45,8 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // Fetch videos from API
 
-  const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.slug}` : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}` )
-  const vid = await v.json()
+  const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.slug}` : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}` )
+  const vid = await res.json()
 
   // rss
   if (vid.length > 0) {
