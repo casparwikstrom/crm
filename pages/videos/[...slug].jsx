@@ -7,10 +7,8 @@ import {BlogSEO} from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 
 const DEFAULT_LAYOUT = 'PostLayout'
-
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
-
 
 function YouTubeVideo({ url }) {
   const videoId = url.split('v=')[1]
