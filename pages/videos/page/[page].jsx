@@ -7,11 +7,12 @@ import getConfig from 'next/config'
 export const VIDEOS_PER_PAGE = 10
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
+const domain = process.env.DOMAIN_URL
 
 export async function getStaticPaths() {
-
-  const v = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://you-b.herokuapp.com/api/v1/videos")
-  const videos = await v.json()
+  
+  const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`)
+  const videos = await res.json()
   
   const totalPages = Math.ceil(videos.length / VIDEOS_PER_PAGE)
   const paths = Array.from({ length: totalPages }, (_, i) => ({
@@ -32,9 +33,8 @@ export async function getStaticProps(context) {
     params: { page },
   } = context
 
-
-  const v = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://you-b.herokuapp.com/api/v1/videos")
-  const videos = await v.json()
+  const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`)
+  const videos = await res.json()
 
   const pageNumber = parseInt(page)
   const initialDisplayVideos = videos.slice(

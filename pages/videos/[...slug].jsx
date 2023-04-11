@@ -9,6 +9,7 @@ import siteMetadata from '@/data/siteMetadata'
 const DEFAULT_LAYOUT = 'PostLayout'
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
+const domain = process.env.DOMAIN_URL
 
 function YouTubeVideo({ url }) {
   const videoId = url.split('v=')[1]
@@ -24,9 +25,9 @@ function YouTubeVideo({ url }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(isDevelopment ? 'http://localhost:3001/api/v1/videos' : "https://you-b.herokuapp.com/api/v1/videos")
+  
+  const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`)
 
-  //const res = await fetch("https://you-b.herokuapp.com/api/v1/videos")
   const videos = await res.json()
 
   return {
@@ -41,7 +42,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   // Fetch videos from API
-  const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.slug}` : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}` )
+
+  const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.slug}?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}?domain=${domain}` )
   const vid = await res.json()
 
   // rss

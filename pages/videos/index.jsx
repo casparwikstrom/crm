@@ -7,11 +7,12 @@ import getConfig from 'next/config'
 export const VIDEOS_PER_PAGE = 2
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
-
+const domain = process.env.DOMAIN_URL
 
 export async function getServerSideProps(context) {
   const tags  = context.query.tags
-  const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?keywords=${tags}` : `https://you-b.herokuapp.com/api/v1/videos?keywords=${tags}`)
+
+  const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?keywords=${tags}&domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?keywords=${tags}&domain=${domain}`)
   const videos = await v.json()
 
   const initialDisplayVideos = videos.slice(0, VIDEOS_PER_PAGE)
