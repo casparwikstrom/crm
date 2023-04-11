@@ -6,8 +6,7 @@ import Script from 'next/script'
 
 const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, ...vid }) => {
   const router = useRouter()
-  const url = "/videos/he-escaped-africa-fight-the-ufc-francis-ngannou-documentary";
-  const path = url.substring(1);
+  // const path = url.substring(1);
   return (
 
     <Head>
