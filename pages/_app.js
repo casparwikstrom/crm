@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }) {
         
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta name="ahrefs-site-verification" content="7a427c46c8950ff0b30305ca900d1f016dfedfad242545b7a0bb6f6308b66406"/>
-        <meta name="google-site-verification" content="xC198qLC8qON-UnBwgDcPIOBRGN5AK2m9YoX0rv_2aE" />
+        <meta name="google-site-verification" content="pgIvJAzEy51BfLeNHZVDPRjJiqtOliORpMxmqLp2eEE" />
         {/* <meta
           http-equiv="Content-Security-Policy"
           content="script-src 'self' http://www.youtube.com"
