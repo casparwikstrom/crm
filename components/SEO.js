@@ -6,8 +6,7 @@ import Script from 'next/script'
 
 const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, ...vid }) => {
   const router = useRouter()
-  const url = "/videos/he-escaped-africa-fight-the-ufc-francis-ngannou-documentary";
-  const path = url.substring(1);
+  
   return (
 
     <Head>
@@ -77,21 +76,38 @@ export const TagSEO = ({ title, description }) => {
 }
 
 export const BlogSEO = ({ url, thumbnails, ...vid }) => {
-  const images = thumbnails ?? [];
+  const images = thumbnails ?? [siteMetadata.socialBanner];
   let truncSummary = vid?.summary?.length > 150 ? vid?.summary.slice(0, 150) : ""
   let description = vid?.description ?? truncSummary
 
   const publishedAt = new Date(vid?.created_at).toISOString()
 
   const modifiedAt = new Date(vid?.updated_at || vid?.created_at).toISOString()
-  let imagesArr =
-    images?.length === 0
-      ? [siteMetadata.socialBanner]
-      : typeof images === 'string'
-        ? [images]
-        : images
+  // let imagesArr =
+  //   images?.length === 0
+  //     ? [siteMetadata.socialBanner]
+  //     : typeof images === 'string'
+  //       ? [images]
+  //       : images
+
+  let imagesArr;
+
+  if (images && images.length === 0) {
+    // If images exist and has a length of 0
+    // Set imagesArr to an array with the default banner image
+    imagesArr = [siteMetadata.socialBanner];
+  } else if (typeof images === 'string') {
+    // If images is a string
+    // Set imagesArr to an array with that string as its only element
+    imagesArr = [images];
+  } else {
+    // If images is an array with elements
+    // Set imagesArr to that array
+    imagesArr = images;
+  }
 
   const featuredImages = imagesArr.map((img) => {
+      
     return {
       '@type': 'ImageObject',
       url: img.url.includes('http') ? img.url : siteMetadata.siteUrl + img.url,
