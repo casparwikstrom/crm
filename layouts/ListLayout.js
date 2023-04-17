@@ -66,7 +66,13 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
                         width={544}
                         height={306}
                       />)
-                    : "nothing"}
+                        : <Image
+                          alt={video?.name}
+                          src={siteMetadata.socialBanner.url}
+                          className="object-cover object-center md:h-36 lg:h-48"
+                          width={544}
+                          height={306}
+                        />}
                       
                     </Link>
                     <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
