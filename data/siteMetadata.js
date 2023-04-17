@@ -1,8 +1,8 @@
 const siteMetadata = {
-  title: 'Documan: Every documentary you want',
+  title: 'AI Wizardz: Everything you need to know about AI',
   author: 'Peter Stern',
   headerTitle: 'Documan',
-  description: 'Discover the best documentaries from independent filmmakers',
+  description: 'Learn about AI, AI prompts and how it can help you in your business',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://zmartare.com/',
