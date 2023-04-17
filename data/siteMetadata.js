@@ -1,7 +1,7 @@
 const siteMetadata = {
   title: 'AI Wizardz: Everything you need to know about AI',
   author: 'Peter Stern',
-  headerTitle: 'Documan',
+  headerTitle: 'AI Wizardz',
   description: 'Learn about AI, AI prompts and how it can help you in your business',
   language: 'en-us',
   theme: 'system', // system, dark or light
