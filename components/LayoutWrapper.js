@@ -50,5 +50,4 @@ const LayoutWrapper = ({ children, metaData }) => {
     </SectionContainer>
   )
 }
-
 export default LayoutWrapper
