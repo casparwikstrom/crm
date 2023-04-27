@@ -1,41 +1,46 @@
-import '@/css/tailwind.css'
-import '@/css/prism.css'
-import 'katex/dist/katex.css'
-
-import '@fontsource/inter/variable-full.css'
-
-import { ThemeProvider } from 'next-themes'
-import Head from 'next/head'
-
-import siteMetadata from '@/data/siteMetadata'
-import Analytics from '@/components/analytics'
-import LayoutWrapper from '@/components/LayoutWrapper'
-import { ClientReload } from '@/components/ClientReload'
-
+import { ThemeProvider } from 'next-themes';
+import LayoutWrapper from '@/components/LayoutWrapper';
+import siteMetadata from '@/data/siteMetadata';
+import '@/css/tailwind.css';
+import '@/css/prism.css';
+import 'katex/dist/katex.css';
+import '@fontsource/inter/variable-full.css';
+import Head from 'next/head';
+import { ClientReload } from '@/components/ClientReload';
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
 
-export default function App({ Component, pageProps }) {
+function CustomApp({ Component, pageProps }) {
+  const { metaData } = pageProps;
+  
   return (
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
       <Head>
-        
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta name="ahrefs-site-verification" content="7a427c46c8950ff0b30305ca900d1f016dfedfad242545b7a0bb6f6308b66406"/>
-        <meta name="google-site-verification" content="pgIvJAzEy51BfLeNHZVDPRjJiqtOliORpMxmqLp2eEE" />
-        {/* <meta
-          http-equiv="Content-Security-Policy"
-          content="script-src 'self' http://www.youtube.com"
-        /> */}
+        <meta name="ahrefs-site-verification" content={metaData.ahrefs} />
       </Head>
       {isDevelopment && isSocket && <ClientReload />}
-      <LayoutWrapper>
-
-
-        <Component {...pageProps} />
-        <Analytics/>
+      <LayoutWrapper metaData={metaData}>
+        <Component {...pageProps} metaData={metaData} />
+        {/* <Analytics /> */}
       </LayoutWrapper>
     </ThemeProvider>
-  )
+  );
 }
+
+CustomApp.getInitialProps = async (appContext) => {
+  const { ctx } = appContext;
+  const domain = process.env.DOMAIN_URL;
+  const res = await fetch(`https://you-b.herokuapp.com/api/v1/dsettings?domain=${domain}`);
+  //const res = await fetch(`http://localhost:3001/api/v1/dsettings?domain=${domain}`);
+  const metaData = await res.json();
+
+  const pageProps = ctx.Component && ctx.Component.getInitialProps
+    ? await ctx.Component.getInitialProps(ctx)
+    : {};
+  
+  return { pageProps: { ...pageProps, metaData } };
+};
+
+export default CustomApp;

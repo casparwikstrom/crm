@@ -30,11 +30,11 @@ export async function getStaticProps() {
   return { props: { videos, initialDisplayVideos, pagination } }
 }
 
-export default function Home({ videos, initialDisplayVideos, pagination }) {
+export default function Home({ videos, initialDisplayVideos, pagination, metaData }) {
 
   return (
     <>
-      <PageSEO title={`Video - ${siteMetadata.author}`} description={siteMetadata.description} />
+      <PageSEO title={`Video - ${metaData.author}`} description={metaData.description} metaData={metaData} />
       <ListLayout
         videos={videos}
         initialDisplayVideos={initialDisplayVideos}

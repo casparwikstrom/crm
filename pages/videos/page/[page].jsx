@@ -55,10 +55,10 @@ export async function getStaticProps(context) {
   }
 }
 
-export default function PostPage({ videos, initialDisplayVideos, pagination }) {
+export default function PostPage({ videos, initialDisplayVideos, pagination, metaData }) {
   return (
     <>
-      <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
+      <PageSEO title={siteMetadata.title} description={siteMetadata.description} metaData={metaData} />
       <ListLayout
         videos={videos}
         initialDisplayVideos={initialDisplayVideos}

@@ -7,23 +7,23 @@ import Footer from './Footer'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 
-const LayoutWrapper = ({ children }) => {
+const LayoutWrapper = ({ children, metaData }) => {
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
         <header className="flex items-center justify-between py-10">
           <div>
-            <Link href="/" aria-label={siteMetadata.headerTitle}>
+            <Link href="/" aria-label={metaData.headerTitle}>
               <div className="flex items-center justify-between">
                 <div className="mr-3">
                   <Logo />
                 </div>
-                {typeof siteMetadata.headerTitle === 'string' ? (
+                {typeof metaData.headerTitle === 'string' ? (
                   <div className="hidden h-6 text-2xl font-semibold sm:block">
-                    {siteMetadata.headerTitle}
+                    {metaData.headerTitle}
                   </div>
                 ) : (
-                  siteMetadata.headerTitle
+                    metaData.headerTitle
                 )}
               </div>
             </Link>
@@ -45,7 +45,7 @@ const LayoutWrapper = ({ children }) => {
           </div>
         </header>
         <main className="mb-auto">{children}</main>
-        <Footer />
+        <Footer metaData={metaData} />
       </div>
     </SectionContainer>
   )

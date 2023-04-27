@@ -87,6 +87,7 @@ module.exports = withBundleAnalyzer({
         'react-dom': 'preact/compat',
       })
     }
+    
 
     return config
   },
@@ -94,8 +95,15 @@ module.exports = withBundleAnalyzer({
     domains: ['i.ytimg.com'],
   },
 
+  // i18n: {
+  //   locales: ['default', 'en', 'de', 'fr'],
+  //   defaultLocale: 'default',
+  //   localeDetection: false,
+  // },
+  trailingSlash: false,
+
   publicRuntimeConfig: {
     isDevelopment: process.env.NODE_ENV === 'development',
-    domain: "zmartare"
+    domain: "zmartare", 
   }
 })

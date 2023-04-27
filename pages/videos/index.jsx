@@ -25,11 +25,11 @@ export async function getServerSideProps(context) {
   return { props: { videos, initialDisplayVideos, pagination } }
 }
 
-export default function Blog({ videos, initialDisplayVideos, pagination }) {
+export default function Blog({ videos, initialDisplayVideos, pagination, metaData }) {
 
   return (
     <>
-      <PageSEO title={`Video - ${siteMetadata.author}`} description={siteMetadata.description} />
+      <PageSEO title={`Video - ${siteMetadata.author}`} description={siteMetadata.description} metaData={metaData} />
       <ListLayout
         videos={videos}
         initialDisplayVideos={initialDisplayVideos}
