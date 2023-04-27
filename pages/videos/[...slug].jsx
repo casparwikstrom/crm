@@ -6,7 +6,6 @@ import getConfig from 'next/config'
 import {BlogSEO} from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 
-const DEFAULT_LAYOUT = 'PostLayout'
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
 
@@ -57,7 +56,7 @@ export async function getStaticProps({ params }) {
   return { props: { vid } }
 }
 
-export default function Blog({ vid }) {
+export default function Blog({ vid, metaData }) {
   
   return (
     <>
@@ -66,6 +65,7 @@ export default function Blog({ vid }) {
        // authorDetails={authorDetails}
         type='article'
         thumbnails={vid?.video_info?.thumbnail?.thumbnails}
+        metaData={metaData}
         {...vid}
       />
       <PageTitle>
