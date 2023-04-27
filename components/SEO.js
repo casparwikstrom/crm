@@ -30,6 +30,7 @@ const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, metaDa
       <meta name="twitter:image" content={twImage} />
       <link
         rel="canonical"
+        
         href={canonicalUrl ? canonicalUrl : `${metaData.siteUrl}${router.asPath.substring(1)}`}
       />
     </Head>
