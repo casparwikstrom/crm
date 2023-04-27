@@ -8,14 +8,16 @@ export async function getStaticProps() {
   return { props: { authorDetails } }
 }
 
-export default function About({ authorDetails }) {
+export default function About({ authorDetails, metaData }) {
   const { mdxSource, frontMatter } = authorDetails
 
   return (
-    <MDXLayoutRenderer
-      layout={frontMatter.layout || DEFAULT_LAYOUT}
-      mdxSource={mdxSource}
-      frontMatter={frontMatter}
-    />
+    <div>Author</div>
+    // <MDXLayoutRenderer
+    //   layout={frontMatter.layout || DEFAULT_LAYOUT}
+    //   mdxSource={mdxSource}
+    //   frontMatter={frontMatter}
+    //   metaData={metaData}
+    // />
   )
 }

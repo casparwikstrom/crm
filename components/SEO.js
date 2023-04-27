@@ -37,8 +37,8 @@ const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, metaDa
 }
 
 export const PageSEO = ({ title, description, metaData }) => {
-  const ogImageUrl = metaData.siteUrl + siteMetadata.socialBanner
-  const twImageUrl = metaData.siteUrl + siteMetadata.socialBanner
+  const ogImageUrl = (metaData ? metaData.siteUrl : siteMetadata.siteUrl)  + siteMetadata.socialBanner
+  const twImageUrl = (metaData ? metaData.siteUrl : siteMetadata.siteUrl) + siteMetadata.socialBanner
   return (
     <CommonSEO
       title={title}
@@ -134,6 +134,9 @@ export const BlogSEO = ({ url, thumbnails, metaData, ...vid }) => {
     '@type': 'Person',
     name: metaData.author,
   }
+  console.log('This is a console log statement.');
+
+  
 
   const structuredData = {
     '@context': 'https://schema.org',
