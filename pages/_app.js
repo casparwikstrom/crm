@@ -7,6 +7,8 @@ import 'katex/dist/katex.css';
 import '@fontsource/inter/variable-full.css';
 import Head from 'next/head';
 import { ClientReload } from '@/components/ClientReload';
+import { appWithTranslation } from 'next-i18next';
+import nextI18NextConfig from '../next-i18next.config.js';
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
@@ -43,4 +45,4 @@ CustomApp.getInitialProps = async (appContext) => {
   return { pageProps: { ...pageProps, metaData } };
 };
 
-export default CustomApp;
+export default appWithTranslation(CustomApp, nextI18NextConfig);

@@ -14,6 +14,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 //   font-src 'self';
 //   frame-src giscus.app
 // `
+const { i18n } = require('./next-i18next.config')
+
 
 
 const ContentSecurityPolicy = `
@@ -91,19 +93,17 @@ module.exports = withBundleAnalyzer({
 
     return config
   },
+  
   images: {
-    domains: ['i.ytimg.com'],
+    domains: ['i.ytimg.com', 'fastly.picsum.photos'],
   },
 
-  // i18n: {
-  //   locales: ['default', 'en', 'de', 'fr'],
-  //   defaultLocale: 'default',
-  //   localeDetection: false,
-  // },
   trailingSlash: false,
 
   publicRuntimeConfig: {
     isDevelopment: process.env.NODE_ENV === 'development',
-    domain: "zmartare", 
-  }
+  },
+
+  i18n
 })
+
