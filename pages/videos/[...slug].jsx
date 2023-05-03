@@ -5,6 +5,9 @@ import YouTube from 'react-youtube'
 import getConfig from 'next/config'
 import {BlogSEO} from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
+import withTranslations from '@/components/withTranslations';
+import Video from '../../models/Video';
+
 
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
@@ -26,37 +29,44 @@ function YouTubeVideo({ url }) {
 }
 
 export async function getStaticPaths() {
-  
-  const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`)
+  // Add the supported languages here
+  const languages = ['en', 'ru', 'fr', 'es', 'ro'];
 
-  const videos = await v.json()
+  const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`);
+  const videos = await v.json();
+
+  const paths = languages.flatMap((lang) =>
+    videos.map((video) => ({
+      params: {
+        slug: video.slug.toString(),
+      },
+      locale: lang,
+    }))
+  );
 
   return {
-    paths: videos.map((video) => ({
-      params: {
-        slug: [video.slug.toString()],
-      },
-    })),
+    paths,
     fallback: false,
-  }
+  };
 }
 
-export async function getStaticProps({ params }) {
-  // Fetch videos from API
+// Update your getStaticProps function
+export async function getStaticProps({ params, locale }) {
+  const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.slug}?lang=${locale}` : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}?lang=${locale}`);
+  const video = await res.json();
 
-  const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.slug}` : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}` )
-  const vid = await res.json()
+  const vid = new Video(video);
 
   // rss
   if (vid.length > 0) {
-    const rss = generateRss(vid)
-    fs.writeFileSync("../public/rss.xml", rss)
+    const rss = generateRss(vid);
+    fs.writeFileSync("../public/rss.xml", rss);
   }
 
-  return { props: { vid } }
+  return { props: { vid } };
 }
 
-export default function Blog({ vid, metaData }) {
+function Blog({ vid, metaData }) {
   
   return (
     <>
@@ -78,3 +88,8 @@ export default function Blog({ vid, metaData }) {
     </>
   )
 }
+
+
+// Your existing Blog component code
+
+export default withTranslations(Blog);
