@@ -30,7 +30,7 @@ function YouTubeVideo({ url }) {
 
 export async function getStaticPaths() {
   // Add the supported languages here
-  const languages = ['en', 'ru', 'fr', 'es', 'ro'];
+  const languages = ['ru', 'fr', 'es', 'ro'];
 
   const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`);
   const videos = await v.json();
