@@ -158,7 +158,6 @@ export const BlogSEO = ({ url, thumbnails, metaData, ...vid }) => {
     description: description,
   }
 
-  console.log(description)
 
   const twImageUrl = featuredImages[0].url
 

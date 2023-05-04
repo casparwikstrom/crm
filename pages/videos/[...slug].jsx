@@ -38,7 +38,7 @@ export async function getStaticPaths() {
   const paths = languages.flatMap((lang) =>
     videos.map((video) => ({
       params: {
-        slug: video.slug.toString(),
+        slug: [video.slug.toString()],
       },
       locale: lang,
     }))
@@ -53,10 +53,10 @@ export async function getStaticPaths() {
 // Update your getStaticProps function
 export async function getStaticProps({ params, locale }) {
   const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.slug}?lang=${locale}` : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}?lang=${locale}`);
-  const video = await res.json();
-
-  const vid = new Video(video);
-
+  const data = await res.json();
+  const video = new Video(data, locale);
+  const vid = Object.assign({}, video);
+  
   // rss
   if (vid.length > 0) {
     const rss = generateRss(vid);
