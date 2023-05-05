@@ -6,8 +6,18 @@
  */
 
 /* Code title styles */
-* {
-  /* border: solid 0.5px red; */
+/* * {
+  border: solid 0.5px red;
+} */
+
+/* TODO: fix this shit */
+.ReactFlagsSelect-module_selectOptions__3LNBJ {
+  
+  background: none !important;
+  
+}
+.ReactFlagsSelect-module_selectOption__3pcgW:hover {
+  background: none !important;
 }
 
 .remark-code-title {

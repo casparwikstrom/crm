@@ -6,6 +6,7 @@ import SectionContainer from './SectionContainer'
 import Footer from './Footer'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
+import LanguageSwitcher from './LanguageSwitcher'
 
 const LayoutWrapper = ({ children, metaData }) => {
   return (
@@ -28,7 +29,11 @@ const LayoutWrapper = ({ children, metaData }) => {
               </div>
             </Link>
           </div>
+          
           <div className="flex items-center text-base leading-5">
+            <div className="hidden sm:block">
+              <LanguageSwitcher className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4"/>
+            </div>
             <div className="hidden sm:block">
               {headerNavLinks.map((link) => (
                 <Link

@@ -18,6 +18,7 @@
       "type": "node-terminal",
       "request": "launch",
       "command": "npm run dev",
+      //"preLaunchTask": "openBrowser",
       "serverReadyAction": {
         "pattern": "started server on .+, url: (https?://.+)",
         "uriFormat": "%s",
