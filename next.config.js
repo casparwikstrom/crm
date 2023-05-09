@@ -89,11 +89,11 @@ module.exports = withBundleAnalyzer({
         'react-dom': 'preact/compat',
       })
     }
-    
+
 
     return config
   },
-  
+
   images: {
     domains: ['i.ytimg.com', 'fastly.picsum.photos'],
   },
@@ -104,6 +104,10 @@ module.exports = withBundleAnalyzer({
     isDevelopment: process.env.NODE_ENV === 'development',
   },
 
-  i18n
+  i18n: {
+    locales: ['en', 'fr', 'es', 'ru', 'ro'],
+    defaultLocale: 'en',
+    localeDetection: false,
+  },
 })
 

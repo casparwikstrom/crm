@@ -50,7 +50,8 @@ export async function getStaticPaths() {
     },
     locale: 'en',
   }));
-
+  console.log(paths)
+  console.log(englishPaths)
   return {
     paths: [...paths, ...englishPaths],
     fallback: false,

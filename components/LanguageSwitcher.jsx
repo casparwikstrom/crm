@@ -33,14 +33,24 @@ const LanguageSwitcher = () => {
     router.push(href, href, { locale: selectedOption.value });
   };
 
-
-  console.log("SELECT", select);
   return (
     <ReactFlagsSelect
       selected={select}
       onSelect={onSelect}
       countries={['US', 'RU', 'FR', 'ES', 'RO']}
       className="dark:bg-gray-900 dark:text-gray-100"
+      //fullWidth={true}
+      selectedSize={14}
+      /*showSelectedLabel={showSelectedLabel}
+    selectedSize={selectedSize}
+    showOptionLabel={showOptionLabel}
+    optionsSize={optionsSize}
+    placeholder={placeholder}
+    searchable={searchable}
+    searchPlaceholder={searchPlaceholder}
+    alignOptionsToRight={alignOptionsToRight}
+    fullWidth={fullWidth}
+    disabled={disabled} */
     />
   );
 };
