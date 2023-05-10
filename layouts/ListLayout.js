@@ -97,7 +97,8 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
                       </div>
                     </div>
                     <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                      {video?.summary ? video?.summary.substr(0, 200) + '...' : ""}
+                      <div className="py-12" dangerouslySetInnerHTML={{ __html: (video?.summary ? video?.summary.substr(0, 200) + '...' : "")}} />
+                      
                     </div>
                   </div>
                 </article>
