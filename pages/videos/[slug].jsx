@@ -36,12 +36,15 @@ export async function getStaticPaths() {
   const videos = await v.json();
 
   const paths = languages.flatMap((lang) =>
-    videos.map((video) => ({
-      params: {
-        slug: video.slug.toString(),
-      },
-      locale: lang,
-    }))
+    videos.map((video) => {
+      
+      return ({
+        params: {
+          slug: video.slug.toString(),
+        },
+        locale: lang,
+      })
+    })
   );
 
   const englishPaths = videos.map((video) => ({
