@@ -68,6 +68,7 @@ console.log('domain', domain)
             .replace('.md', '')
             .replace('.next/server/', '')
             .replace('/feed.xml', '')
+            .replace('/en', '')
           const route = path === '/index' ? '' : path
           let dom = '';
           switch (domain) {
