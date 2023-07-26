@@ -72,11 +72,11 @@ console.log('domain', domain)
           let dom = ''
           switch (domain) {
             case "docu":
-              dom = "https://www.ydocu.com/";
+              dom = "https://www.ydocu.com";
             case "money":
-              dom = "https://www.cashclinic.com/";
+              dom = "https://www.cashclinic.com";
             case "site3":
-              dom = "https://www.example-site3.com/";
+              dom = "https://www.example-site3.com";
           };
           
           return `
