@@ -70,14 +70,18 @@ console.log('domain', domain)
             .replace('/feed.xml', '')
           const route = path === '/index' ? '' : path
           let dom = ''
+          let dom = '';
           switch (domain) {
             case "docu":
               dom = "https://www.ydocu.com";
+              break;
             case "money":
               dom = "https://www.cashclinic.com";
+              break;
             case "site3":
               dom = "https://www.example-site3.com";
-          };
+              break;
+          }
           
           return `
             <url>
