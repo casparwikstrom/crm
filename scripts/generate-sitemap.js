@@ -55,6 +55,11 @@ console.log('domain', domain)
               </url>
             `
           }
+          switch (domain) {
+            case "docu": "https://www.ydocu.com/"
+              break;
+          }
+
           const path = page
             .replace('pages/', '/')
             .replace('data/blog', '/blog')
