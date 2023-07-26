@@ -6,7 +6,7 @@ const prettier = require('prettier')
 const siteMetadata = require('../data/siteMetadata')
 
 
-let domain = process.env.DOMAIN_URL
+const domain = process.env.DOMAIN_URL
 console.log('domain', domain)
   ;(async () => {
     const prettierConfig = await prettier.resolveConfig('./.prettierrc.js')
@@ -69,17 +69,14 @@ console.log('domain', domain)
             .replace('.next/server/', '')
             .replace('/feed.xml', '')
           const route = path === '/index' ? '' : path
+          let dom = ''
           switch (domain) {
             case "docu":
-              domain = "https://www.ydocu.com/";
+              dom = "https://www.ydocu.com/";
             case "money":
-              domain = "https://www.cashclinic.com/";
+              dom = "https://www.cashclinic.com/";
             case "site3":
-              domain = "https://www.example-site3.com/";
-            // Add more cases for each of your sites
-            default:
-              // If the value of domainAIN_URL doesn't match any of the cases, you can set a default URL
-              domain = "https://www.default-site.com/";
+              dom = "https://www.example-site3.com/";
           };
           
           return `
