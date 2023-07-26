@@ -69,7 +69,6 @@ console.log('domain', domain)
             .replace('.next/server/', '')
             .replace('/feed.xml', '')
           const route = path === '/index' ? '' : path
-          let dom = ''
           let dom = '';
           switch (domain) {
             case "docu":
