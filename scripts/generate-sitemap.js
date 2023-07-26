@@ -81,7 +81,7 @@ console.log('domain', domain)
           
           return `
             <url>
-              <loc>${domain}${route}</loc>
+              <loc>${dom}${route}</loc>
             </url>
           `
         })
