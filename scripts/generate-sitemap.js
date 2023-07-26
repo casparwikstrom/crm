@@ -76,10 +76,16 @@ console.log('domain', domain)
               dom = "https://www.ydocu.com";
               break;
             case "money":
-              dom = "https://www.cashclinic.com";
+              dom = "https://www.thecashclinic.com";
               break;
-            case "site3":
-              dom = "https://www.example-site3.com";
+            case "travel":
+              dom = "https://www.freetipsfortravel.com";
+              break;
+            case "diy":
+              dom = "https://www.diyman.info";
+              break;
+            case "chatgpt":
+              dom = "https://www.aiwizardz.com";
               break;
           }
           
