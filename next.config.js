@@ -105,7 +105,7 @@ module.exports = withBundleAnalyzer({
   },
 
   i18n: {
-    locales: ['en', 'fr', 'es', 'ru', 'ro'],
+    locales: ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de', 'in'],
     defaultLocale: 'en',
     localeDetection: false,
   },

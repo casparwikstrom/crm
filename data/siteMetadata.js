@@ -5,7 +5,7 @@ const siteMetadata = {
   description: 'Discover the best documentaries from independent filmmakers',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://zmartare.com/',
+  siteUrl: 'https://zmartare.com',
   siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',

@@ -22,12 +22,19 @@ const LanguageSwitcher = () => {
 
   const handleChange = (countryCode) => {
     if (countryCode === "US") {
-      countryCode = "en";
+      countryCode = 'en';
     }
+    if (countryCode === "IN") {
+      countryCode = "HI";
+    }
+    if (countryCode === "SA") {
+      countryCode = "AR";
+    }
+
     const selectedOption = countryOptions.find(
       (option) => option.value === countryCode.toLowerCase()
     );
-    
+
     const href = countryCode != "en" ? `/${selectedOption.value}${asPath}` : asPath;
 
     router.push(href, href, { locale: selectedOption.value });
@@ -37,20 +44,20 @@ const LanguageSwitcher = () => {
     <ReactFlagsSelect
       selected={select}
       onSelect={onSelect}
-      countries={['US', 'RU', 'FR', 'ES', 'RO']}
+      countries={['US', 'RU', 'FR', 'ES', 'RO', 'IN', 'SA', 'PT', 'DE', 'IN']}
       className="dark:bg-gray-900 dark:text-gray-100"
       //fullWidth={true}
       selectedSize={14}
-      /*showSelectedLabel={showSelectedLabel}
-    selectedSize={selectedSize}
-    showOptionLabel={showOptionLabel}
-    optionsSize={optionsSize}
-    placeholder={placeholder}
-    searchable={searchable}
-    searchPlaceholder={searchPlaceholder}
-    alignOptionsToRight={alignOptionsToRight}
-    fullWidth={fullWidth}
-    disabled={disabled} */
+    /*showSelectedLabel={showSelectedLabel}
+  selectedSize={selectedSize}
+  showOptionLabel={showOptionLabel}
+  optionsSize={optionsSize}
+  placeholder={placeholder}
+  searchable={searchable}
+  searchPlaceholder={searchPlaceholder}
+  alignOptionsToRight={alignOptionsToRight}
+  fullWidth={fullWidth}
+  disabled={disabled} */
     />
   );
 };
