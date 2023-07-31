@@ -13,8 +13,6 @@ console.log('domain', domain)
     const pages = await globby([
       'pages/*.js',
       'pages/*.tsx',
-      'data/blog/**/*.mdx',
-      'data/blog/**/*.md',
       'public/tags/**/*.xml',
       '.next/server/pages/**/videos/*.html', // Add this line to include the generated pages
       '!pages/_*.js',
@@ -27,8 +25,7 @@ console.log('domain', domain)
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${pages
         .map((page) => {
-          // ... (Existing code)
-          debugger
+      
           // Check if the current page is a video page
           if (page.includes('pages/videos/') && fs.existsSync(page)) {
             const source = fs.readFileSync(page, 'utf8')
@@ -59,7 +56,6 @@ console.log('domain', domain)
 
           const path = page
             .replace('pages/', '/')
-            .replace('data/blog', '/blog')
             .replace('public/', '/')
             .replace('.js', '')
             .replace('.tsx', '')
