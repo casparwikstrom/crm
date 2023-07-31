@@ -14,7 +14,7 @@ console.log('domain', domain)
       'pages/*.js',
       'pages/*.tsx',
       'public/tags/**/*.xml',
-      '.next/server/pages/**/videos/*.html', // Add this line to include the generated pages
+      '.next/server/pages/en/videos/*.html', // update when adding new languages
       '!pages/_*.js',
       '!pages/_*.tsx',
       '!pages/api',
