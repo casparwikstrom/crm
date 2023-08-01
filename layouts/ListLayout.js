@@ -90,17 +90,13 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
                           {video?.name}
                         </Link>
                       </h3>
-                      <div className="flex flex-wrap">
+                      <div className="flex flex-wrap h-full">
                         {tags.map((tag) => (
                           <Tag key={tag} text={tag} />
                         ))}
                       </div>
                     </div>
-                   
-                      
-                      
-                      <div className="py-12 " dangerouslySetInnerHTML={{ __html: (video?.summary ? video?.summary.substr(0, 200) + '...' : "") }} />
-                    
+                      <div className="" dangerouslySetInnerHTML={{ __html: (video?.summary ? video?.summary.substr(0, 200) + '...' : "") }} />
                   </div>
                 </article>
               </li>
