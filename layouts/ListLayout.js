@@ -73,7 +73,7 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
                           width={544}
                           height={306}
                         />}
-                      
+
                     </Link>
                     <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                       Published on: <br />{' '}
@@ -96,10 +96,11 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
                         ))}
                       </div>
                     </div>
-                    <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                      <div className="py-12" dangerouslySetInnerHTML={{ __html: (video?.summary ? video?.summary.substr(0, 200) + '...' : "")}} />
+                   
                       
-                    </div>
+                      
+                      <div className="py-12 " dangerouslySetInnerHTML={{ __html: (video?.summary ? video?.summary.substr(0, 200) + '...' : "") }} />
+                    
                   </div>
                 </article>
               </li>

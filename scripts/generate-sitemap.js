@@ -7,7 +7,6 @@ const siteMetadata = require('../data/siteMetadata')
 
 
 const domain = process.env.DOMAIN_URL
-console.log('domain', domain)
   ;(async () => {
     const prettierConfig = await prettier.resolveConfig('./.prettierrc.js')
     const pages = await globby([
