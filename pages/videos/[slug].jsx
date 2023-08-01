@@ -9,7 +9,7 @@ import withTranslations from '@/components/withTranslations';
 import Video from '../../models/Video';
 import Link from '@/components/Link'
 import classNames from 'classnames';
-
+import Image from '@/components/Image';
 
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
@@ -38,9 +38,9 @@ export async function getStaticPaths() {
   const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`);
   const videos = await v.json();
 
+
   const paths = languages.flatMap((lang) =>
     videos.map((video) => {
-
       return ({
         params: {
           slug: video.slug.toString(),
@@ -64,22 +64,6 @@ export async function getStaticPaths() {
 }
 
 // Update your getStaticProps function
-// export async function getStaticProps({ params, locale }) {
-//   const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos/${params.slug}` : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}`);
-//   const data = await res.json();
-//   const video = new Video(data, locale);
-//   const vid = Object.assign({}, video);
-
-//   // rss
-//   if (vid.length > 0) {
-//     const rss = generateRss(vid);
-//     fs.writeFileSync("../public/rss.xml", rss);
-//   }
-
-//   return { props: { vid } };
-// }
-
-// Update your getStaticProps function
 export async function getStaticProps({ params, locale }) {
   const res = await fetch(
     isDevelopment
@@ -99,6 +83,27 @@ export async function getStaticProps({ params, locale }) {
   const allVideos = await allVideosRes.json();
   const currentIndex = allVideos.findIndex((v) => v.slug === params.slug);
 
+
+  const filteredBlogVideos = allVideos.filter((frontMatter) => {
+    let searchContent = frontMatter["keywords"] && frontMatter["keywords"].length > 5
+      ? frontMatter["keywords"].slice(0, 5)
+      : [frontMatter.name];
+
+    let searchValue = vid["keywords"] && vid["keywords"].length > 5
+      ? vid["keywords"].slice(0, 5)
+      : [vid.name];
+
+    // Convert both searchContent and searchValue to lowercase before checking for the partial match
+    const regex = new RegExp(searchValue.join('|'), 'i');
+    // console.log(regex)
+    // // Loop through the elements of array1 and test against the regex
+    // // return searchContent.toLowerCase().includes(searchValue.toLowerCase());
+    return searchContent.some((element) => regex.test(element));
+  });
+
+  console.log(allVideos.length)
+  console.log(filteredBlogVideos.length)
+
   // Get the next video/article based on the current index
   const nextVideo = allVideos[currentIndex + 1];
   const priorVideo = allVideos[currentIndex - 1];
@@ -109,11 +114,11 @@ export async function getStaticProps({ params, locale }) {
     fs.writeFileSync("../public/rss.xml", rss);
   }
 
-  return { props: { vid, nextVideo, priorVideo } };
+  return { props: { vid, nextVideo, priorVideo, filteredBlogVideos } };
 }
 
 
-function Blog({ vid, metaData, nextVideo, priorVideo }) {
+function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
 
   return (
     <>
@@ -145,7 +150,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo }) {
         )}
 
         {nextVideo && (
-          <div className="flex-shrink-0 flex-grow-0 w-1/2" style={{ maxWidth: '50%'}}>
+          <div className="flex-shrink-0 flex-grow-0 w-1/2" style={{ maxWidth: '50%' }}>
             <Link href={`/videos/${nextVideo.slug}`}>
               <div
                 className={classNames(
@@ -162,20 +167,86 @@ function Blog({ vid, metaData, nextVideo, priorVideo }) {
         )}
       </div>
 
-
-
-
-
       <PageTitle>
         <div dangerouslySetInnerHTML={{ __html: vid.name }} />
       </PageTitle>
-      <div className="py-12" dangerouslySetInnerHTML={{ __html: vid.description }} />
+      <div className="py-10" dangerouslySetInnerHTML={{ __html: vid.description }} />
       <YouTubeVideo url={vid.url} />
 
-      <div className="py-12" dangerouslySetInnerHTML={{ __html: vid.summary }} />
+      <div className="py-10" dangerouslySetInnerHTML={{ __html: vid.summary }} />
+
+      {/* <div className='grid grid-cols-3 gap-4'>
+        {!filteredBlogVideos.length && <p>No Videos found.</p>}
+        {filteredBlogVideos.map((video) => {
+          const thumbnails = video?.video_info?.thumbnail?.thumbnails;
+          return (
+            <div key={video?.id} className="col-auto">
+              <article>
+                <div className="mx-3">
+                  <Link href={`/videos/${video.slug}`} aria-label={`Link to ${video?.name}`}>
+                    {thumbnails ? (
+                      <Image
+                        alt={video?.name}
+                        src={thumbnails[1]?.url}
+                        className="object-cover object-center h-36 lg:h-48 w-full"
+                        width={100}
+                        height={120}
+                      />
+                    ) : (
+                      <Image
+                        alt={video?.name}
+                        src={siteMetadata.socialBanner.url}
+                        className="object-cover object-center h-36 lg:h-48 w-full"
+                        width={100}
+                        height={120}
+                      />
+                    )}
+                  </Link>
+                </div>
+                <div className="mt-4 mx-3">
+                  <h3 className="text-m font-bold leading-8 tracking-tight">
+                    <Link href={`/videos/${video.slug}`} className="text-gray-900 dark:text-gray-100">
+                      {video?.name}
+                    </Link>
+                  </h3>
+                </div>
+              </article>
+            </div>
+          );
+        })}
+      </div> */}
+      <div className="grid grid-cols-3 gap-4 grid-flow-row">
+        {!filteredBlogVideos.length && <p>No Videos found.</p>}
+        {filteredBlogVideos.map((video) => {
+          const thumbnails = video?.video_info?.thumbnail?.thumbnails;
+          const backgroundImage = thumbnails ? `url(${thumbnails[1]?.url})` : `url(${siteMetadata.socialBanner.url})`;
+          const containerStyle = {
+            backgroundImage,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            position: 'relative',
+            borderRadius: '0.5rem',
+          };
+
+          return (
+            <div key={video?.id} className="col-auto" style={containerStyle}>
+              <article>
+                <div className="absolute inset-0 flex justify-center items-end">
+                  <h3 className="text-m font-bold leading-8 tracking-tight text-white">
+                    <Link href={`/videos/${video.slug}`} className="text-white">
+                      {video?.name}
+                    </Link>
+                  </h3>
+                </div>
+              </article>
+            </div>
+          );
+        })}
+      </div>
+
     </>
   )
 }
-
 
 export default withTranslations(Blog);
