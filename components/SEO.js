@@ -160,6 +160,7 @@ export const BlogSEO = ({ url, thumbnails, metaData, ...vid }) => {
 
 
   const twImageUrl = featuredImages[0].url
+  const canonicalUrl = url;
 
   return (
     <>
@@ -170,6 +171,7 @@ export const BlogSEO = ({ url, thumbnails, metaData, ...vid }) => {
         ogImage={featuredImages}
         twImage={twImageUrl}
         metaData={metaData}
+        canonicalUrl={canonicalUrl} 
       />
       <Head>
         {vid?.created_at && <meta property="article:published_time" content={publishedAt} />}
