@@ -105,8 +105,17 @@ export async function getStaticProps({ params, locale }) {
   console.log(filteredBlogVideos.length)
 
   // Get the next video/article based on the current index
-  const nextVideo = allVideos[currentIndex + 1];
-  const priorVideo = allVideos[currentIndex - 1];
+  let nextVideo = allVideos[currentIndex + 1];
+  let priorVideo = allVideos[currentIndex - 1];
+  
+  if (!priorVideo) {
+    console.log('no prior video')
+    priorVideo = allVideos[allVideos.length - 1]; // Set priorVideo to the last video in the array
+  }
+  if (!nextVideo) {
+    console.log('no next video')
+    nextVideo = allVideos[0]; // Set nextVideo to the first video in the array
+  }
 
   // rss
   if (vid.length > 0) {
@@ -175,47 +184,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
 
       <div className="py-10" dangerouslySetInnerHTML={{ __html: vid.summary }} />
 
-      {/* <div className='grid grid-cols-3 gap-4'>
-        {!filteredBlogVideos.length && <p>No Videos found.</p>}
-        {filteredBlogVideos.map((video) => {
-          const thumbnails = video?.video_info?.thumbnail?.thumbnails;
-          return (
-            <div key={video?.id} className="col-auto">
-              <article>
-                <div className="mx-3">
-                  <Link href={`/videos/${video.slug}`} aria-label={`Link to ${video?.name}`}>
-                    {thumbnails ? (
-                      <Image
-                        alt={video?.name}
-                        src={thumbnails[1]?.url}
-                        className="object-cover object-center h-36 lg:h-48 w-full"
-                        width={100}
-                        height={120}
-                      />
-                    ) : (
-                      <Image
-                        alt={video?.name}
-                        src={siteMetadata.socialBanner.url}
-                        className="object-cover object-center h-36 lg:h-48 w-full"
-                        width={100}
-                        height={120}
-                      />
-                    )}
-                  </Link>
-                </div>
-                <div className="mt-4 mx-3">
-                  <h3 className="text-m font-bold leading-8 tracking-tight">
-                    <Link href={`/videos/${video.slug}`} className="text-gray-900 dark:text-gray-100">
-                      {video?.name}
-                    </Link>
-                  </h3>
-                </div>
-              </article>
-            </div>
-          );
-        })}
-      </div> */}
-      <div className="grid grid-cols-3 gap-4 grid-flow-row">
+      {/* <div className="grid grid-cols-3 gap-4 grid-flow-row">
         {!filteredBlogVideos.length && <p>No Videos found.</p>}
         {filteredBlogVideos.map((video) => {
           const thumbnails = video?.video_info?.thumbnail?.thumbnails;
@@ -243,7 +212,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
             </div>
           );
         })}
-      </div>
+      </div> */}
 
     </>
   )
