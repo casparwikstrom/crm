@@ -92,30 +92,28 @@ export async function getStaticProps({ params, locale }) {
     let searchValue = vid["keywords"] && vid["keywords"].length > 5
       ? vid["keywords"].slice(0, 5)
       : [vid.name];
-
-    // Convert both searchContent and searchValue to lowercase before checking for the partial match
+      
     const regex = new RegExp(searchValue.join('|'), 'i');
-    // console.log(regex)
-    // // Loop through the elements of array1 and test against the regex
-    // // return searchContent.toLowerCase().includes(searchValue.toLowerCase());
     return searchContent.some((element) => regex.test(element));
   });
-
-  console.log(allVideos.length)
-  console.log(filteredBlogVideos.length)
 
   // Get the next video/article based on the current index
   let nextVideo = allVideos[currentIndex + 1];
   let priorVideo = allVideos[currentIndex - 1];
-  
+
   if (!priorVideo) {
-    console.log('no prior video')
+    console.log('no prior video');
     priorVideo = allVideos[allVideos.length - 1]; // Set priorVideo to the last video in the array
   }
   if (!nextVideo) {
-    console.log('no next video')
+    console.log('no next video');
     nextVideo = allVideos[0]; // Set nextVideo to the first video in the array
   }
+
+  // Using Object.assign to create new objects with only the slug and name properties
+  nextVideo = Object.assign({}, { slug: nextVideo.slug, name: nextVideo.name });
+  priorVideo = Object.assign({}, { slug: priorVideo.slug, name: priorVideo.name });
+
 
   // rss
   if (vid.length > 0) {
