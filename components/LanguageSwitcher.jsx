@@ -48,16 +48,16 @@ const LanguageSwitcher = () => {
       className="dark:bg-gray-900 dark:text-gray-100"
       //fullWidth={true}
       selectedSize={14}
-    /*showSelectedLabel={showSelectedLabel}
-  selectedSize={selectedSize}
-  showOptionLabel={showOptionLabel}
-  optionsSize={optionsSize}
-  placeholder={placeholder}
-  searchable={searchable}
-  searchPlaceholder={searchPlaceholder}
-  alignOptionsToRight={alignOptionsToRight}
-  fullWidth={fullWidth}
-  disabled={disabled} */
+        /*showSelectedLabel={showSelectedLabel}
+      selectedSize={selectedSize}
+      showOptionLabel={showOptionLabel}
+      optionsSize={optionsSize}
+      placeholder={placeholder}
+      searchable={searchable}
+      searchPlaceholder={searchPlaceholder}
+      alignOptionsToRight={alignOptionsToRight}
+      fullWidth={fullWidth}
+      disabled={disabled} */
     />
   );
 };

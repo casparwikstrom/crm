@@ -54,14 +54,8 @@ a:hover::before {
   width:100%;
 }
 
-/* TODO: fix this shit */
-.ReactFlagsSelect-module_selectOptions__3LNBJ {
-  
-  background: none !important;
-  
-}
-.ReactFlagsSelect-module_selectOption__3pcgW:hover {
-  background: none !important;
+.dark .ReactFlagsSelect-module_selectOptions__3LNBJ {
+    @apply bg-gray-900 !important;
 }
 
 .remark-code-title {
