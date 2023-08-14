@@ -155,7 +155,6 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
             </Link>
           </div>
         )}
-
         {nextVideo && (
           <div className="flex-shrink-0 flex-grow-0 w-1/2" style={{ maxWidth: '50%' }}>
             <Link href={`/videos/${nextVideo.slug}`}>
