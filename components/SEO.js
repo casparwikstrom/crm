@@ -16,22 +16,27 @@ const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, metaDa
       <meta property="og:url" content={`${metaData.siteUrl}${router.asPath}`} />
       <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={metaData.title} />
-      <meta property="og:description" content={desc} />
-      <meta property="og:title" content={title} />
+      <meta property="og:description" content={desc ? desc : metaData.description} />
+      <meta property="og:title" content={title ? title : metaData.title} />
       {ogImage.constructor.name === 'Array' ? (
         ogImage.map(({ url }) => <meta property="og:image" content={url} key={url} />)
       ) : (
-        <meta property="og:image" content={ogImage} key={ogImage} />
+        <>
+          <meta property="og:image" content={ogImage} key={ogImage} />
+          <meta itemprop="image" content={ogImage} key={ogImage + "itemprop"} />
+        </>
       )}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content={metaData.twitter} />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={desc} />
+      <meta name="twitter:title" content={title ? title : metaData.title} />
+      <meta name="twitter:description" content={desc ? desc : metaData.description} />
       <meta name="twitter:image" content={twImage} />
       <link
         rel="canonical"
         href={canonicalUrl ? canonicalUrl : `${metaData.siteUrl}${router.asPath.substring(1)}`}
       />
+      <meta itemprop="name" content={title ? title : metaData.title} />
+      <meta itemprop="description" content={desc ? desc : metaData.description} />
     </Head>
   )
 }
@@ -171,7 +176,7 @@ export const BlogSEO = ({ url, thumbnails, metaData, ...vid }) => {
         ogImage={featuredImages}
         twImage={twImageUrl}
         metaData={metaData}
-        canonicalUrl={canonicalUrl} 
+        canonicalUrl={canonicalUrl}
       />
       <Head>
         {vid?.created_at && <meta property="article:published_time" content={publishedAt} />}

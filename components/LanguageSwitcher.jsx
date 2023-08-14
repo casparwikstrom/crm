@@ -44,7 +44,7 @@ const LanguageSwitcher = () => {
     <ReactFlagsSelect
       selected={select}
       onSelect={onSelect}
-      countries={['US', 'RU', 'FR', 'ES', 'RO', 'IN', 'SA', 'PT', 'DE', 'IN']}
+      countries={['US', 'RU', 'FR', 'ES', 'RO', 'IN', 'SA', 'PT', 'DE']}
       className="dark:bg-gray-900 dark:text-gray-100"
       //fullWidth={true}
       selectedSize={14}
