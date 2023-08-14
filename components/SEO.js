@@ -10,9 +10,9 @@ const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, metaDa
   return (
 
     <Head>
-      <title>{title}</title>
+      <title>{title ? title : metaData.title}</title>
       <meta name="robots" content="follow, index" />
-      <meta name="description" content={desc} />
+      <meta name="description" content={desc ? desc : metaData.description} />
       <meta property="og:url" content={`${metaData.siteUrl}${router.asPath}`} />
       <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={metaData.title} />
@@ -41,8 +41,8 @@ export const PageSEO = ({ title, description, metaData }) => {
   const twImageUrl = metaData.siteUrl + siteMetadata.socialBanner
   return (
     <CommonSEO
-      title={title}
-      description={description}
+      title={metaData.title}
+      description={metaData.description}
       ogType="website"
       ogImage={ogImageUrl}
       twImage={twImageUrl}

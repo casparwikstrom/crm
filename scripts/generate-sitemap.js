@@ -79,7 +79,7 @@ const domain = process.env.DOMAIN_URL
             case "diy":
               dom = "https://www.diyman.info";
               break;
-            case "chatgpt":
+            case "chat":
               dom = "https://www.aiwizardz.com";
               break;
           }

@@ -36,6 +36,7 @@ CustomApp.getInitialProps = async (appContext) => {
   const domain = process.env.DOMAIN_URL;
   const res = await fetch(`https://you-b.herokuapp.com/api/v1/dsettings?domain=${domain}`);
   //const res = await fetch(`http://localhost:3001/api/v1/dsettings?domain=${domain}`);
+  
   const metaData = await res.json();
 
   const pageProps = ctx.Component && ctx.Component.getInitialProps
