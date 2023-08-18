@@ -34,7 +34,11 @@ export async function getStaticPaths() {
   // Add the supported languages here
   const languages = ['ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
 
-  const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`);
+  const v = await fetch(
+    isDevelopment
+      ? `http://localhost:3001/api/v1/videos?domain=${domain}`
+      : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`
+  );
   const videos = await v.json();
 
   const paths = languages.flatMap((lang) =>
@@ -47,7 +51,7 @@ export async function getStaticPaths() {
       })
     })
   );
-  
+
   const englishPaths = videos.map((video) => ({
     params: {
       slug: video.slug.toString(),
@@ -74,7 +78,7 @@ export async function getStaticProps({ params, locale }) {
 
   // Fetch all videos to find the index of the current video
   const allVideosRes = await fetch(
-    isDevelopment 
+    isDevelopment
       ? `http://localhost:3001/api/v1/videos?domain=${domain}`
       : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`
   );
@@ -90,7 +94,7 @@ export async function getStaticProps({ params, locale }) {
     let searchValue = vid["keywords"] && vid["keywords"].length > 5
       ? vid["keywords"].slice(0, 5)
       : [vid.name];
-      
+
     const regex = new RegExp(searchValue.join('|'), 'i');
     return searchContent.some((element) => regex.test(element));
   });
