@@ -1,104 +1,86 @@
-const fs = require('fs')
-const globby = require('globby')
-const matter = require('gray-matter')
-const prettier = require('prettier')
+const fs = require('fs');
+const globby = require('globby');
+const matter = require('gray-matter');
+const prettier = require('prettier');
 
-const siteMetadata = require('../data/siteMetadata')
+const siteMetadata = require('../data/siteMetadata');
 
+const domain = process.env.DOMAIN_URL;
+const languages = ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
 
-const domain = process.env.DOMAIN_URL
-  ;(async () => {
-    const prettierConfig = await prettier.resolveConfig('./.prettierrc.js')
-    const pages = await globby([
-      'pages/*.js',
-      'pages/*.tsx',
-      'public/tags/**/*.xml',
-      '.next/server/pages/en/videos/*.html', // update when adding new languages
-      '!pages/_*.js',
-      '!pages/_*.tsx',
-      '!pages/api',
-    ])
+(async () => {
+  const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');
+  const pages = await globby([
+    'pages/*.js',
+    'pages/*.tsx',
+    '.next/server/pages/en/videos/*.html',
+    '!pages/_*.js',
+    '!pages/_*.tsx',
+    '!pages/api',
+    '!pages/404.js',  // Exclude the 404 page
+  ]);
 
-    const sitemap = `
+  const sitemap = `
     <?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
       ${pages
-        .map((page) => {
-      
-          // Check if the current page is a video page
-          if (page.includes('pages/videos/') && fs.existsSync(page)) {
-            const source = fs.readFileSync(page, 'utf8')
-            const fm = matter(source)
-            if (fm.data.draft) {
-              return
-            }
-            if (fm.data.canonicalUrl) {
-              return
-            }
+      .map((page) => {
+        const path = page
+          .replace('pages/', '/')
+          .replace('public/', '/')
+          .replace('.js', '')
+          .replace('.tsx', '')
+          .replace('.mdx', '')
+          .replace('.html', '')
+          .replace('.md', '')
+          .replace('.next/server/', '')
+          .replace('/feed.xml', '')
+          .replace('/en', '');
 
-            // Extract the slug from the path (assuming video page paths are like 'pages/videos/slug.js')
-            const slug = page.split('pages/videos/')[1].replace('.js', '')
+        const route = path === '/index' ? '' : path;
 
-            // Construct the URL for video pages
-            const videoUrl = `/videos/${slug}`
+        let dom = '';
+        switch (domain) {
+          case 'docu':
+            dom = 'https://www.ydocu.com';
+            break;
+          case 'money':
+            dom = 'https://www.thecashclinic.com';
+            break;
+          case 'travel':
+            dom = 'https://www.freetipsfortravel.com';
+            break;
+          case 'diy':
+            dom = 'https://www.diyman.info';
+            break;
+          case 'chat':
+            dom = 'https://www.aiwizardz.com';
+            break;
+        }
 
-            // ... (Existing code)
-
-            // Return the sitemap entry for video pages
-            return `
-              <url>
-                <loc>${siteMetadata.siteUrl}${videoUrl}</loc>
-              </url>
-            `
-          }
-          
-
-          const path = page
-            .replace('pages/', '/')
-            .replace('public/', '/')
-            .replace('.js', '')
-            .replace('.tsx', '')
-            .replace('.mdx', '')
-            .replace('.html', '')
-            .replace('.md', '')
-            .replace('.next/server/', '')
-            .replace('/feed.xml', '')
-            .replace('/en', '')
-          const route = path === '/index' ? '' : path
-          let dom = '';
-          switch (domain) {
-            case "docu":
-              dom = "https://www.ydocu.com";
-              break;
-            case "money":
-              dom = "https://www.thecashclinic.com";
-              break;
-            case "travel":
-              dom = "https://www.freetipsfortravel.com";
-              break;
-            case "diy":
-              dom = "https://www.diyman.info";
-              break;
-            case "chat":
-              dom = "https://www.aiwizardz.com";
-              break;
-          }
-          
-          return `
+        return `
             <url>
               <loc>${dom}${route}</loc>
+              ${languages
+            .map((lang) => {
+              if (lang === 'en') {
+                return `<xhtml:link rel="alternate" hreflang="${lang}" href="${dom}${route}" />`;
+              } else {
+                return `<xhtml:link rel="alternate" hreflang="${lang}" href="${dom}/${lang}${route}" />`;
+              }
+            })
+            .join('')}
             </url>
-          `
-        })
-        .join('')}
+          `;
+      })
+      .join('')}
     </urlset>
-  `
+  `;
 
-    const formatted = prettier.format(sitemap, {
-      ...prettierConfig,
-      parser: 'html',
-    })
+  const formatted = prettier.format(sitemap, {
+    ...prettierConfig,
+    parser: 'html',
+  });
 
-    // eslint-disable-next-line no-sync
-    fs.writeFileSync('public/sitemap.xml', formatted)
-  })()
+  fs.writeFileSync('public/sitemap.xml', formatted);
+})();

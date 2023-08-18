@@ -82,7 +82,7 @@ export const TagSEO = ({ title, description, metaData }) => {
   )
 }
 
-export const BlogSEO = ({ url, thumbnails, metaData, ...vid }) => {
+export const BlogSEO = ({ vid_url, thumbnails, metaData, ...vid }) => {
   const images = thumbnails ?? [siteMetadata.socialBanner];
   let truncSummary = vid?.summary?.length > 150 ? vid?.summary.slice(0, 150) : ""
   let description = vid?.description ?? truncSummary
@@ -145,7 +145,7 @@ export const BlogSEO = ({ url, thumbnails, metaData, ...vid }) => {
     '@type': 'Article',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': url,
+      '@id': vid_url,
     },
     headline: vid.name,
     image: featuredImages,
@@ -165,7 +165,7 @@ export const BlogSEO = ({ url, thumbnails, metaData, ...vid }) => {
 
 
   const twImageUrl = featuredImages[0].url
-  const canonicalUrl = url;
+  const canonicalUrl = vid_url;
 
   return (
     <>
