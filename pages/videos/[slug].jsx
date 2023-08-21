@@ -125,8 +125,6 @@ export async function getStaticProps({ params, locale }) {
 
   return { props: { vid, nextVideo, priorVideo, filteredBlogVideos } };
 }
-
-
 function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
 
   return (
