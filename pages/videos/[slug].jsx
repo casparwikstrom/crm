@@ -132,7 +132,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
   return (
     <>
       <BlogSEO
-        vid_url={`${siteMetadata.siteUrl}/videos/${vid.slug}`}
+        vid_url={`${metaData.siteUrl}/videos/${vid.slug}`}
         // authorDetails={authorDetails}
         type='article'
         thumbnails={vid?.video_info?.thumbnail?.thumbnails}
