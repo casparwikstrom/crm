@@ -11,6 +11,7 @@ const CommonSEO = ({ title, desc, ogType, ogImage, twImage, canonicalUrl, metaDa
 
     <Head>
       <title>{title ? title : metaData.title}</title>
+      <meta name='ir-site-verification-token' value='-1328556586'></meta>
       <meta name="robots" content="follow, index" />
       <meta name="description" content={desc ? desc : metaData.description} />
       <meta property="og:url" content={`${metaData.siteUrl}${router.asPath}`} />
