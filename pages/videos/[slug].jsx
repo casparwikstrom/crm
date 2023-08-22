@@ -65,7 +65,6 @@ export async function getStaticPaths() {
   };
 }
 
-// Update your getStaticProps function
 export async function getStaticProps({ params, locale }) {
   const res = await fetch(
     isDevelopment
@@ -116,15 +115,19 @@ export async function getStaticProps({ params, locale }) {
   nextVideo = Object.assign({}, { slug: nextVideo.slug, name: nextVideo.name });
   priorVideo = Object.assign({}, { slug: priorVideo.slug, name: priorVideo.name });
 
-
   // rss
   if (vid.length > 0) {
     const rss = generateRss(vid);
     fs.writeFileSync("../public/rss.xml", rss);
   }
 
-  return { props: { vid, nextVideo, priorVideo, filteredBlogVideos } };
+  return {
+    props: { vid, nextVideo, priorVideo, filteredBlogVideos },
+    revalidate: 86400, // Re-generate the page every 24 hours
+  };
+
 }
+
 function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
 
   return (
