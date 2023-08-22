@@ -53,7 +53,7 @@ const languages = ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
           case 'diy':
             dom = 'https://www.diyman.info';
             break;
-          case 'chat':
+          case 'chatgpt':
             dom = 'https://www.aiwizardz.com';
             break;
         }
