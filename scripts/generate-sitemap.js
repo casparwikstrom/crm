@@ -51,7 +51,7 @@ const languages = ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
             dom = 'https://www.freetipsfortravel.com';
             break;
           case 'diy':
-            dom = 'https://www.diyman.info';
+            dom = 'https://www.technoab.com';
             break;
           case 'chatgpt':
             dom = 'https://www.aiwizardz.com';
