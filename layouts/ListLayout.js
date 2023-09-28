@@ -13,7 +13,7 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
     const searchContent = frontMatter.name + frontMatter.url
     return searchContent.toLowerCase().includes(searchValue.toLowerCase())
   })
-
+  
   // If initialDisplayVideos exist, display it if no searchValue is specified
   const displayVideos =
     initialDisplayVideos.length > 0 && !searchValue ? initialDisplayVideos : filteredBlogVideos
@@ -51,23 +51,23 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
         </div>
         <ul>
           {!filteredBlogVideos.length && 'No Videos found.'}
-          {displayVideos.map((video) => {
-            const tags = video?.keywords.slice(1, 10)
-            const thumbnails = video?.video_info?.thumbnail?.thumbnails
+          {displayVideos.map((singel_video) => {
+            const tags = singel_video?.keywords.slice(1, 10)
+            const thumbnails = singel_video?.video_info?.thumbnail?.thumbnails ? singel_video?.video_info?.thumbnail?.thumbnails : singel_video?.video_info?.videoDetails?.thumbnail?.thumbnails
             return (
-              <li key={video?.id} className="py-4">
+              <li key={singel_video?.id} className="py-4">
                 <article className="xl:grid xl:grid-cols-4  xl:space-y-0">
                   <dl className="mx-3">
-                    <Link href={`/videos/${video.slug}`} aria-label={`Link to ${video?.name}`}>
+                    <Link href={`/videos/${singel_video.slug}`} aria-label={`Link to ${singel_video?.name}`}>
                       {thumbnails ? (<Image
-                        alt={video?.name}
+                        alt={singel_video?.name}
                         src={thumbnails[1]?.url}
                         className="object-cover object-center md:h-36 lg:h-48"
                         width={544}
                         height={306}
                       />)
                         : <Image
-                          alt={video?.name}
+                          alt={singel_video?.name}
                           src={siteMetadata.socialBanner.url}
                           className="object-cover object-center md:h-36 lg:h-48"
                           width={544}
@@ -77,17 +77,17 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
                     </Link>
                     <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                       Published on: <br />{' '}
-                      <time dateTime={video.created_at}>{formatDate(video.created_at)}</time>
+                      <time dateTime={singel_video.created_at}>{formatDate(singel_video.created_at)}</time>
                     </dd>
                   </dl>
                   <div className="space-y-3 xl:col-span-3">
                     <div>
                       <h3 className="text-2xl font-bold leading-8 tracking-tight">
                         <Link
-                          href={`/videos/${video.slug}`}
+                          href={`/videos/${singel_video.slug}`}
                           className="text-gray-900 dark:text-gray-100"
                         >
-                          {video?.name}
+                          {singel_video?.name}
                         </Link>
                       </h3>
                       <div className="flex flex-wrap h-full">
@@ -96,7 +96,8 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
                         ))}
                       </div>
                     </div>
-                      <div className="" dangerouslySetInnerHTML={{ __html: (video?.summary ? video?.summary.substr(0, 200) + '...' : "") }} />
+                  
+                    <div className="" dangerouslySetInnerHTML={{ __html: (singel_video?.description ? singel_video?.description.substr(0, 200) + '...' : "") }} />
                   </div>
                 </article>
               </li>

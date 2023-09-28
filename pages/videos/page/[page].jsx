@@ -10,14 +10,14 @@ const isDevelopment = publicRuntimeConfig.isDevelopment
 const domain = process.env.DOMAIN_URL
 
 export async function getStaticPaths() {
-  
+
   const res = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`)
   const videos = await res.json()
-  
+
   const totalPages = Math.ceil(videos.length / VIDEOS_PER_PAGE)
   const paths = Array.from({ length: totalPages }, (_, i) => ({
 
-    params: { 
+    params: {
       page: (i + 1).toString(),
     },
   }))
