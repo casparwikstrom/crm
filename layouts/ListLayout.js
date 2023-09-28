@@ -96,8 +96,9 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
                         ))}
                       </div>
                     </div>
-                  
-                    <div className="" dangerouslySetInnerHTML={{ __html: (singel_video?.description ? singel_video?.description.substr(0, 200) + '...' : "") }} />
+                    <div className="" >
+                      {(singel_video?.description ? singel_video?.description.substr(0, 200) + '...' : "")}
+                    </div>
                   </div>
                 </article>
               </li>
