@@ -97,7 +97,6 @@ export default function ListLayout({ videos, title, initialDisplayVideos = [], p
                       </div>
                     </div>
                     <div>
-                      {console.log(singel_video?.description)}
                       {(singel_video?.description ? singel_video?.description : "")}
                     </div>
                   </div>

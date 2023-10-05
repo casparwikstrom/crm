@@ -10,17 +10,16 @@ class Video {
     this.name = this.getName(data, locale);
     this.description = this.getDescription(data, locale);
     this.summary = this.getSummary(data, locale);
+    this.modifySummary();  // Call the method to modify the summary
     // add other properties as needed
   }
 
   getName(data, locale) {
-    // get the title based on the current locale
     const newName = locale !== 'en' && data[`name_${locale}`] ? data[`name_${locale}`] : data.name;
     return newName;
   }
 
   getDescription(data, locale) {
-    // get the description based on the current locale
     const newDesc = locale !== 'en' && data[`description_${locale}`] ? data[`description_${locale}`] : data.description;
     return newDesc;
   }
@@ -30,7 +29,13 @@ class Video {
     return newSum;
   }
 
-  // add other methods as needed
+  modifySummary() {
+    if (this.summary) {
+      this.summary = this.summary.replace(/<h1>(\d)-([^<]+)<\/h1>/g, function (match, p1, p2) {
+        return `<h${p1}>${p2}</h${p1}>`;
+      });
+    }
+  }
 }
 
 export default Video;
