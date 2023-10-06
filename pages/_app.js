@@ -9,6 +9,7 @@ import Head from 'next/head';
 import { ClientReload } from '@/components/ClientReload';
 import { appWithTranslation } from 'next-i18next';
 import nextI18NextConfig from '../next-i18next.config.js';
+import { Analytics } from '@vercel/analytics/react';
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
@@ -25,7 +26,7 @@ function CustomApp({ Component, pageProps }) {
       {isDevelopment && isSocket && <ClientReload />}
       <LayoutWrapper metaData={metaData}>
         <Component {...pageProps} metaData={metaData} />
-        {/* <Analytics /> */}
+        <Analytics />
       </LayoutWrapper>
     </ThemeProvider>
   );
