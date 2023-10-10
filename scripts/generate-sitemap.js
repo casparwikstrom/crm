@@ -70,6 +70,7 @@ const languages = ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
               }
             })
             .join('')}
+            <xhtml:link rel="alternate" hreflang="x-default" href="${dom}${route}" />
             </url>
           `;
       })
