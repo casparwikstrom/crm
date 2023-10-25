@@ -5,10 +5,11 @@
  * https://github.com/PrismJS/prism-themes
  */
 
-/* Code title styles */
-/* * {
+
+
+* {
   border: solid 0.5px red;
-} */
+}
 
 .truncate {
   white-space: nowrap;
@@ -55,7 +56,7 @@ a:hover::before {
 }
 
 .dark .ReactFlagsSelect-module_selectOptions__3LNBJ {
-    @apply bg-gray-900 !important;
+  @apply bg-gray-900 !important;
 }
 
 .remark-code-title {

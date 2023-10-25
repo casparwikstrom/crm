@@ -17,18 +17,53 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        mobile: '375px',
+        desktop: '940px'
+      },
       spacing: {
         '9/16': '56.25%',
       },
       lineHeight: {
         p: '2',
+        'normal': 'normal',
       },
       fontFamily: {
-        sans: ['Verdana', ...defaultTheme.fontFamily.sans],
+        sans: ['Ubuntu', 'sans-serif']
+      },
+      fontSize: {
+        heading: '2rem',
+        'heading-mobile': '1.5rem',
+        'body-l': '1rem',
+        'body-m': '0.875rem',
+        'body-s': '0.75rem',
+        14: '0.875rem'
+      },
+      boxShadow: {
+        form: '0px 25px 40px 0px rgba(0, 0, 0, 0.13)'
+      },
+      borderRadius: {
+        small: '4px',
+        large: '8px',
+        sidebar: '10px',
+        main: '15px'
       },
       colors: {
         primary: colors.teal,
         gray: colors.neutral,
+        border: '#D6D9E6',
+        denim: '#022959',
+        
+        orange: '#FFAF7E',
+        pink: '#F9818E',
+        purple: '#483EFF',
+        'light-blue': '#ABBCFF',
+        'light-gray': '#D6D9E6',
+        'red-errors': '#EE374A',
+        'sky-blue': '#BEE2FD',
+        'very-light-gray': '#F8F9FF',
+        'denim-hover': '#164A8A',
+        'purple-hover': '#928CFF'
       },
 
       typography: (theme) => {

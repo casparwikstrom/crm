@@ -11,12 +11,16 @@ import { appWithTranslation } from 'next-i18next';
 import nextI18NextConfig from '../next-i18next.config.js';
 import { Analytics } from '@vercel/analytics/react';
 
+import { StepProvider } from '@/components/context/StepContext';
+
+
+
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
 
 function CustomApp({ Component, pageProps }) {
   const { metaData } = pageProps;
-  
+
   return (
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
       <Head>
@@ -25,7 +29,10 @@ function CustomApp({ Component, pageProps }) {
       </Head>
       {isDevelopment && isSocket && <ClientReload />}
       <LayoutWrapper metaData={metaData}>
-        <Component {...pageProps} metaData={metaData} />
+        <StepProvider>
+          <Component {...pageProps} metaData={metaData} />
+        </StepProvider>
+
         <Analytics />
       </LayoutWrapper>
     </ThemeProvider>
@@ -37,13 +44,13 @@ CustomApp.getInitialProps = async (appContext) => {
   const domain = process.env.DOMAIN_URL;
   const res = await fetch(`https://you-b.herokuapp.com/api/v1/dsettings?domain=${domain}`);
   //const res = await fetch(`http://localhost:3001/api/v1/dsettings?domain=${domain}`);
-  
+
   const metaData = await res.json();
 
   const pageProps = ctx.Component && ctx.Component.getInitialProps
     ? await ctx.Component.getInitialProps(ctx)
     : {};
-  
+
   return { pageProps: { ...pageProps, metaData } };
 };
 

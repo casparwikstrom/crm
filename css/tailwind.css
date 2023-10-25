@@ -23,3 +23,32 @@ input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
 }
+
+
+
+/* React transition group */
+
+.fade-enter {
+  opacity: 0;
+  transform: translateX(-10%);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(10%);
+}
+
+.fade-enter-active,
+.fade-exit-active {
+  transition: opacity 400ms, transform 400ms;
+}
