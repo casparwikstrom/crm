@@ -42,6 +42,8 @@ function CustomApp({ Component, pageProps }) {
   );
 }
 
+
+
 CustomApp.getInitialProps = async (appContext) => {
   const { ctx } = appContext;
   const domain = process.env.DOMAIN_URL;
