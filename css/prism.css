@@ -7,8 +7,15 @@
 
 
 
-* {
+/* * {
   border: solid 0.5px red;
+} */
+
+blockquote {
+    background-color: #deddff80;
+    border-left: solid 5px #0800ff5c;
+    padding: 1rem;
+    border-radius: 4px;
 }
 
 .truncate {
