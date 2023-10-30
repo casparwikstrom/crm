@@ -1,15 +1,20 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { SwitchTransition, CSSTransition } from 'react-transition-group'
-
 import { StepContext } from "../context/StepContext"
 import Buttons from "../Buttons"
-
-
+import { useRouter } from 'next/router';
 
 function MainForm(props) {
   const { step } = useContext(StepContext)
+  const router = useRouter();
   
   const completionClass = step.isCompleted ? 'justify-center' : 'desktop:justify-between'
+
+  useEffect(() => {
+    if (step.isCompleted) {
+      router.push('/companies');
+    }
+  }, [step.isCompleted]);
 
   return (
     <main className="px-4 desktop:w-[55rem] desktop:mr-4 desktop:mx-[2.25rem] desktop:p-0 desktop:mt-0">
@@ -20,7 +25,7 @@ function MainForm(props) {
       >
         <SwitchTransition>
           <CSSTransition key={step.current} classNames="fade" timeout={400}>
-            {!step.isCompleted ? props.children : "thank you"}
+            {props.children}
           </CSSTransition>
         </SwitchTransition>
         <Buttons />

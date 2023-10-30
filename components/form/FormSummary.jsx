@@ -17,15 +17,15 @@ export default function FormSummary() {
     <li key={index} className="flex justify-between mt-3">
       <span>{addon.name}</span>
       <span className="text-denim">
-        +{state.isYearly ? addon.price.yearly : addon.price.monthly}/{termSlug}
+        {/* +{state.isYearly ? addon.price.yearly : addon.price.monthly}/{termSlug} */}
       </span>
     </li>
   ))
 
-  const addonsPrice = state.addons.reduce((result, currentAddon) => {
-    return result + (state.isYearly ? currentAddon.price.yearly : currentAddon.price.monthly)
-  }, 0)
-  const totalPrice = planPrice + addonsPrice
+  // const addonsPrice = state.addons.reduce((result, currentAddon) => {
+  //   return result + (state.isYearly ? currentAddon.price.yearly : currentAddon.price.monthly)
+  // }, 0)
+  // const totalPrice = planPrice + addonsPrice
   const hasAddons = state.addons.length > 0
 
   function goToSelectPlan() {
@@ -41,7 +41,7 @@ export default function FormSummary() {
       <div className="p-4 bg-very-light-gray text-body-m rounded-large">
         <div className="flex justify-between items-center">
           <div>
-            <div className="font-medium">Arcade ({state.isYearly ? 'Yearly' : 'Montly'})</div>
+
             <button
               type="button"
               className="underline text-gray hover:text-purple transition-colors"
@@ -51,7 +51,7 @@ export default function FormSummary() {
             </button>
           </div>
           <span className="font-bold">
-            ${planPrice}/{termSlug}
+           
           </span>
         </div>
         {hasAddons && <ul className="mt-3 border-t-gray border-t-[1px] text-gray">{addons}</ul>}
@@ -59,7 +59,7 @@ export default function FormSummary() {
       <div className="flex justify-between mt-6 mx-4">
         <span className="text-gray text-body-m">Total (per {state.isYearly ? 'year' : 'month'})</span>
         <span className="text-purple font-bold">
-          ${totalPrice}/{termSlug}
+          
         </span>
       </div>
     </div>

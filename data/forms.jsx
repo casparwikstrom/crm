@@ -14,7 +14,7 @@ const forms = [
     text: 'Add-ons'
   },
   {
-    component: <FormAddons title="nummer två?" data={addOns[1]} />,
+    component: <FormAddons title="Listan nedan visar viktiga grundläggande moduler i ett CRM, vilka har ni behov av?" data={addOns[1]} />,
     text: 'Add-ons'
   },
   {

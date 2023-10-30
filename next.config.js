@@ -1,11 +1,12 @@
-const withBuilderDevTools = require('@builder.io/dev-tools/next')()
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
+
 // You might need to insert additional domains in script-src if you are using external services
 // const ContentSecurityPolicy = `
 //   default-src 'self';
 //     script-src 'self' 'unsafe-eval' 'unsafe-inline' http://www.youtube.com;
+
 //   style-src 'self' 'unsafe-inline';
 //   img-src * blob: data:;
 //   media-src 'none';
@@ -14,9 +15,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 //   frame-src giscus.app
 // `
 const { i18n } = require('./next-i18next.config')
+
+
+
 const ContentSecurityPolicy = `
   script-src 'self' 'unsafe-eval' 'unsafe-inline' http://www.youtube.com;
 `
+
 const securityHeaders = [
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
   {
@@ -55,48 +60,54 @@ const securityHeaders = [
   },
 ]
 
-module.exports = withBuilderDevTools(
-  withBundleAnalyzer({
-    reactStrictMode: true,
-    pageExtensions: ['js', 'jsx', 'md', 'mdx'],
-    eslint: {
-      dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
-    },
-    async headers() {
-      return [
-        {
-          source: '/(.*)',
-          headers: securityHeaders,
-        },
-      ]
-    },
-    webpack: (config, { dev, isServer }) => {
-      config.module.rules.push({
-        test: /\.svg$/,
-        use: ['@svgr/webpack'],
+module.exports = withBundleAnalyzer({
+  reactStrictMode: true,
+  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
+  eslint: {
+    dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: securityHeaders,
+      },
+    ]
+  },
+  webpack: (config, { dev, isServer }) => {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    })
+
+    if (!dev && !isServer) {
+      // Replace React with Preact only in client production build
+      Object.assign(config.resolve.alias, {
+        'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
+        react: 'preact/compat',
+        'react-dom/test-utils': 'preact/test-utils',
+        'react-dom': 'preact/compat',
       })
-      if (!dev && !isServer) {
-        // Replace React with Preact only in client production build
-        Object.assign(config.resolve.alias, {
-          'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
-          react: 'preact/compat',
-          'react-dom/test-utils': 'preact/test-utils',
-          'react-dom': 'preact/compat',
-        })
-      }
-      return config
-    },
-    images: {
-      domains: ['i.ytimg.com', 'fastly.picsum.photos'],
-    },
-    trailingSlash: false,
-    publicRuntimeConfig: {
-      isDevelopment: process.env.NODE_ENV === 'development',
-    },
-    i18n: {
-      locales: ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'],
-      defaultLocale: 'en',
-      localeDetection: false,
-    },
-  })
-)
+    }
+
+
+    return config
+  },
+
+  images: {
+    domains: ['i.ytimg.com', 'fastly.picsum.photos'],
+  },
+
+  trailingSlash: false,
+
+  publicRuntimeConfig: {
+    isDevelopment: process.env.NODE_ENV === 'development',
+  },
+
+  i18n: {
+    locales: ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'],
+    defaultLocale: 'en',
+    localeDetection: false,
+  },
+})
+

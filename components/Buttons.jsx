@@ -2,15 +2,18 @@ import { useContext } from 'react';
 import { FormContext } from "@/components/context/FormContext";
 import { StepContext } from "@/components/context/StepContext";
 import forms from "@/data/forms";
+import { useRouter } from 'next/router';
+
 
 const Buttons = () => {
   const { state } = useContext(FormContext);
   const { step, dispatchStep } = useContext(StepContext);
   const isLastStep = step.current === forms.length;
-
+  const router = useRouter();
+  
+  
   const goNext = () => {
     if (isLastStep) {
-
       dispatchStep({ type: 'COMPLETE' });
       return;
     }
@@ -21,7 +24,7 @@ const Buttons = () => {
     dispatchStep({ type: 'GO_BACK' });
   };
 
-  if (step.isCompleted) return null;
+  // if (step.isCompleted) return null;
 
   return (
     

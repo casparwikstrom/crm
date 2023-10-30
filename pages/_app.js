@@ -12,7 +12,7 @@ import nextI18NextConfig from '../next-i18next.config.js';
 import { Analytics } from '@vercel/analytics/react';
 
 import { StepProvider } from '@/components/context/StepContext';
-
+import { FormProvider } from '@/components/context/FormContext';
 
 
 const isDevelopment = process.env.NODE_ENV === 'development'
@@ -29,9 +29,12 @@ function CustomApp({ Component, pageProps }) {
       </Head>
       {isDevelopment && isSocket && <ClientReload />}
       <LayoutWrapper metaData={metaData}>
-        <StepProvider>
-          <Component {...pageProps} metaData={metaData} />
-        </StepProvider>
+        <FormProvider>
+
+          <StepProvider>
+            <Component {...pageProps} metaData={metaData} />
+          </StepProvider>
+        </FormProvider>
 
         <Analytics />
       </LayoutWrapper>
@@ -42,8 +45,7 @@ function CustomApp({ Component, pageProps }) {
 CustomApp.getInitialProps = async (appContext) => {
   const { ctx } = appContext;
   const domain = process.env.DOMAIN_URL;
-  const res = await fetch(`https://you-b.herokuapp.com/api/v1/dsettings?domain=${domain}`);
-  //const res = await fetch(`http://localhost:3001/api/v1/dsettings?domain=${domain}`);
+  const res = await fetch(isDevelopment ? `https://you-b.herokuapp.com/api/v1/dsettings?domain=${domain}` : `http://localhost:3001/api/v1/dsettings?domain=${domain}`)
 
   const metaData = await res.json();
 
