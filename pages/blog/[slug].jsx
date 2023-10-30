@@ -14,8 +14,8 @@ import Image from '@/components/Image';
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
 
-const domain = process.env.DOMAIN_URL
-
+// const domain = process.env.DOMAIN_URL
+const domain = "crm"
 
 function YouTubeVideo({ url }) {
   const videoId = url.split('v=')[1]
