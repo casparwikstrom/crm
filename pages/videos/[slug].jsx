@@ -34,7 +34,7 @@ export async function getStaticPaths() {
   // Add the supported languages here
   const languages = ['ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
 
-  const v = await fetch(!isDevelopment
+  const v = await fetch(isDevelopment
       ? `http://localhost:3001/api/v1/videos?domain=${domain}`
       : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`
   );
@@ -65,8 +65,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params, locale }) {
-  const res = await fetch(
-    !isDevelopment
+  const res = await fetch(isDevelopment
       ? `http://localhost:3001/api/v1/videos/${params.slug}`
       : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}`
   );
@@ -75,8 +74,7 @@ export async function getStaticProps({ params, locale }) {
   const vid = Object.assign({}, video);
 
   // Fetch all videos to find the index of the current video
-  const allVideosRes = await fetch(
-    !isDevelopment
+  const allVideosRes = await fetch(isDevelopment
       ? `http://localhost:3001/api/v1/videos?domain=${domain}`
       : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`
   );

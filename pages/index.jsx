@@ -17,7 +17,7 @@ export const VIDEOS_PER_PAGE = 10;
 
 export async function getStaticProps() {
   const domain = process.env.DOMAIN_URL
-  const v = await fetch(!isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`)
+  const v = await fetch(isDevelopment ? `http://localhost:3001/api/v1/videos?domain=${domain}` : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`)
   const videos = await v.json()
 
   const initialDisplayVideos = videos.slice(0, VIDEOS_PER_PAGE)

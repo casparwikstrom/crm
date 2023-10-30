@@ -13,7 +13,7 @@ export default function Companies() {
   const [companyData, setCompanyData] = useState([]);
   const [variant, setVariant] = useState('outlined');
 
-  console.log(state)
+  /* console.log(state)
   console.log(state)
   
   useEffect(() => {
@@ -28,14 +28,14 @@ export default function Companies() {
       .catch((error) => {
         console.error('Error fetching company data:', error);
       });
-  }, []);
+  }, []); */
 
  const renderCompanyCards = () => {
     return companyData.map((company, index) => {
-      return (
-        <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+      return (<div></div>
+       /*  <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
           <CompanyCard company={company} />
-        </Grid>
+        </Grid> */
       );
     });
   };
