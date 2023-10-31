@@ -74,6 +74,24 @@ module.exports = withBundleAnalyzer({
       },
     ]
   },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/videos/:slug',
+  //       destination: '/:slug',
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
+  async rewrites() {
+    return [
+      {
+        source: '/:slug',
+        destination: '/videos/:slug', // This should match your folder structure
+      },
+    ];
+  },
+  
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
       test: /\.svg$/,

@@ -31,6 +31,7 @@ function YouTubeVideo({ url }) {
 }
 
 export async function getStaticPaths() {
+  
   // Add the supported languages here
   const languages = ['ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
 
@@ -65,6 +66,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params, locale }) {
+  
   const res = await fetch(isDevelopment
       ? `http://localhost:3001/api/v1/videos/${params.slug}`
       : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}`
@@ -130,7 +132,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
   return (
     <>
       <BlogSEO
-        vid_url={`${metaData.siteUrl}/videos/${vid.slug}`}
+        vid_url={`${metaData.siteUrl}/${vid.slug}`}
         // authorDetails={authorDetails}
         type='article'
         thumbnails={vid?.video_info?.thumbnail?.thumbnails}
@@ -141,7 +143,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
       <div className="flex justify-between">
         {priorVideo && (
           <div className="flex-shrink-0 flex-grow-0 w-1/2" style={{ maxWidth: '50%' }}>
-            <Link href={`/videos/${priorVideo.slug}`}>
+            <Link href={`/${priorVideo.slug}`}>
               <div
                 className={classNames(
                   'flex items-center mt-2 text-blue-500 hover:underline',
@@ -157,7 +159,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
         )}
         {nextVideo && (
           <div className="flex-shrink-0 flex-grow-0 w-1/2" style={{ maxWidth: '50%' }}>
-            <Link href={`/videos/${nextVideo.slug}`}>
+            <Link href={`/${nextVideo.slug}`}>
               <div
                 className={classNames(
                   'flex items-center mt-2 text-blue-500 hover:underline',
@@ -200,7 +202,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
               <article>
                 <div className="absolute inset-0 flex justify-center items-end">
                   <h3 className="text-m font-bold leading-8 tracking-tight text-white">
-                    <Link href={`/videos/${video.slug}`} className="text-white">
+                    <Link href={`/${video.slug}`} className="text-white">
                       {video?.name}
                     </Link>
                   </h3>

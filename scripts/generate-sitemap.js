@@ -36,6 +36,7 @@ const languages = ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
           .replace('.next/server/', '')
           .replace('/feed.xml', '')
           .replace('/en', '');
+          console.log(path)
 
         const route = path === '/index' ? '' : path;
 
@@ -60,20 +61,22 @@ const languages = ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
             dom = 'https://crmproductreview.com';
             break;
         }
+        const cleanedRoute = route.startsWith('/videos') ? route.replace('/videos', '') : route;
 
         return `
             <url>
               <loc>${dom}${route}</loc>
               ${languages
             .map((lang) => {
+              console.log(cleanedRoute)
               if (lang === 'en') {
-                return `<xhtml:link rel="alternate" hreflang="${lang}" href="${dom}${route}" />`;
+                return `<xhtml:link rel="alternate" hreflang="${lang}" href="${dom}${cleanedRoute}" />`;
               } else {
-                return `<xhtml:link rel="alternate" hreflang="${lang}" href="${dom}/${lang}${route}" />`;
+                return `<xhtml:link rel="alternate" hreflang="${lang}" href="${dom}/${lang}${cleanedRoute}" />`;
               }
             })
             .join('')}
-            <xhtml:link rel="alternate" hreflang="x-default" href="${dom}${route}" />
+            <xhtml:link rel="alternate" hreflang="x-default" href="${dom}${cleanedRoute}" />
             </url>
           `;
       })
