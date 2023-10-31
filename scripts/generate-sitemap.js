@@ -56,6 +56,9 @@ const languages = ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
           case 'chatgpt':
             dom = 'https://www.aiwizardz.com';
             break;
+          case 'crm':
+            dom = 'https://crmproductreview.com';
+            break;
         }
 
         return `
