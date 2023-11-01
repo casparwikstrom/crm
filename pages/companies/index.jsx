@@ -13,29 +13,30 @@ export default function Companies() {
   const [companyData, setCompanyData] = useState([]);
   const [variant, setVariant] = useState('outlined');
 
-  /* console.log(state)
+  console.log(state)
   console.log(state)
   
+  
   useEffect(() => {
-    // Define the endpoint for fetching companies
     const endpoint = 'companies';
+    const sortParams = { sortBy: 'name', order: 'asc' }; // Replace with your sorting criteria
 
-    // Use the genericCall function to fetch data
-    genericCall(endpoint, 'GET')
+    genericCall(endpoint, 'GET', null, sortParams)
       .then((response) => {
-        setCompanyData(response); // Set companyData with response data
+        setCompanyData(response);
       })
       .catch((error) => {
         console.error('Error fetching company data:', error);
       });
-  }, []); */
+  }, []);
+
 
  const renderCompanyCards = () => {
     return companyData.map((company, index) => {
-      return (<div></div>
-       /*  <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+      return (
+        <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
           <CompanyCard company={company} />
-        </Grid> */
+        </Grid>
       );
     });
   };
