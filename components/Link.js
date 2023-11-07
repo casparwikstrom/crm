@@ -10,7 +10,7 @@ const CustomLink = ({ href, ...rest }) => {
 
   if (isInternalLink) {
     return (
-      <Link href={href} locale={locale !== 'en' ? locale : undefined}>
+      <Link href={href} locale={locale !== 'sv' ? locale : undefined}>
         <a {...rest} />
       </Link>
     )

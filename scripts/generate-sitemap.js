@@ -6,7 +6,8 @@ const prettier = require('prettier');
 const siteMetadata = require('../data/siteMetadata');
 
 const domain = process.env.DOMAIN_URL;
-const languages = ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
+const languages = ['sv', 'en', 'ro', 'es']; 
+
 
 (async () => {
   const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');
@@ -65,18 +66,17 @@ const languages = ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
 
         return `
             <url>
-              <loc>${dom}${route}</loc>
+              <loc>${dom}${cleanedRoute}</loc>
               ${languages
-            .map((lang) => {
-              console.log(cleanedRoute)
-              if (lang === 'en') {
-                return `<xhtml:link rel="alternate" hreflang="${lang}" href="${dom}${cleanedRoute}" />`;
-              } else {
-                return `<xhtml:link rel="alternate" hreflang="${lang}" href="${dom}/${lang}${cleanedRoute}" />`;
-              }
-            })
-            .join('')}
-            <xhtml:link rel="alternate" hreflang="x-default" href="${dom}${cleanedRoute}" />
+                    .map((lang) => {
+                      if (lang === 'sv') { // Swedish URLs should not have the /sv prefix
+                        return `<xhtml:link rel="alternate" hreflang="${lang}" href="${dom}${cleanedRoute}" />`;
+                      } else {
+                        return `<xhtml:link rel="alternate" hreflang="${lang}" href="${dom}/${lang}${cleanedRoute}" />`;
+                      }
+                    })
+                    .join('')}
+              <xhtml:link rel="alternate" hreflang="x-default" href="${dom}${cleanedRoute}" /> <!-- x-default now points to Swedish URLs -->
             </url>
           `;
       })

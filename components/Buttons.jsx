@@ -5,13 +5,14 @@ import forms from "@/data/forms";
 import { useRouter } from 'next/router';
 
 
+
 const Buttons = () => {
   const { state } = useContext(FormContext);
   const { step, dispatchStep } = useContext(StepContext);
   const isLastStep = step.current === forms.length;
   const router = useRouter();
   
-  
+
   const goNext = () => {
     if (isLastStep) {
       dispatchStep({ type: 'COMPLETE' });

@@ -123,8 +123,8 @@ module.exports = withBundleAnalyzer({
   },
 
   i18n: {
-    locales: ['en', 'ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'],
-    defaultLocale: 'en',
+    locales: ['en', 'sv','ro', 'es'],
+    defaultLocale: 'sv',
     localeDetection: false,
   },
 })

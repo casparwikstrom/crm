@@ -14,7 +14,7 @@ const LanguageSwitcher = () => {
     handleChange(code);
     return setSelect(code);
   };
-
+  
   const countryOptions = locales.map((lang) => ({
     value: lang,
     label: lang.toUpperCase(),
@@ -24,18 +24,19 @@ const LanguageSwitcher = () => {
     if (countryCode === "US") {
       countryCode = 'en';
     }
-    if (countryCode === "IN") {
-      countryCode = "HI";
+    if (countryCode === "SE") {
+      countryCode = "sv";
     }
     if (countryCode === "SA") {
       countryCode = "AR";
     }
 
     const selectedOption = countryOptions.find(
+      
       (option) => option.value === countryCode.toLowerCase()
     );
 
-    const href = countryCode != "en" ? `/${selectedOption.value}${asPath}` : asPath;
+    const href = countryCode != "sv" ? `/${selectedOption.value}${asPath}` : asPath;
 
     router.push(href, href, { locale: selectedOption.value });
   };
@@ -44,7 +45,7 @@ const LanguageSwitcher = () => {
     <ReactFlagsSelect
       selected={select}
       onSelect={onSelect}
-      countries={['US', 'RU', 'FR', 'ES', 'RO', 'IN', 'SA', 'PT', 'DE']}
+      countries={['SE', 'US', 'ES', 'RO']}
       className="dark:bg-gray-900 dark:text-gray-100"
       //fullWidth={true}
       selectedSize={14}

@@ -3,7 +3,7 @@ const siteMetadata = {
   author: 'Peter Stern',
   headerTitle: 'Documan',
   description: 'Discover the best documentaries from independent filmmakers',
-  language: 'en-us',
+  language: 'sv-sv',
   theme: 'system', // system, dark or light
   siteUrl: 'https://zmartare.com',
   siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
@@ -16,7 +16,7 @@ const siteMetadata = {
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com',
   linkedin: 'https://www.linkedin.com',
-  locale: 'en-US',
+  locale: 'sv-SE',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.

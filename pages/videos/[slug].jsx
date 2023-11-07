@@ -33,7 +33,7 @@ function YouTubeVideo({ url }) {
 export async function getStaticPaths() {
   
   // Add the supported languages here
-  const languages = ['ru', 'fr', 'es', 'ro', 'hi', 'ar', 'pt', 'de'];
+  const languages = ['sv', 'ro', 'es'];
 
   const v = await fetch(isDevelopment
       ? `http://localhost:3001/api/v1/videos?domain=${domain}`

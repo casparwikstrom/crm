@@ -54,6 +54,7 @@ function FormProvider(props) {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      console.log(state)
       localStorage.setItem('formData', JSON.stringify(state));
     }
   }, [state]);

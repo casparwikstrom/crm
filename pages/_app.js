@@ -23,7 +23,7 @@ function CustomApp({ Component, pageProps }) {
 
   return (
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
-      <Head>
+      <Head lang="sv">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta name="ahrefs-site-verification" content={metaData.ahrefs} />
       </Head>

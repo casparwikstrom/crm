@@ -15,17 +15,17 @@ class Video {
   }
 
   getName(data, locale) {
-    const newName = locale !== 'en' && data[`name_${locale}`] ? data[`name_${locale}`] : data.name;
+    const newName = locale !== 'sv' && data[`name_${locale}`] ? data[`name_${locale}`] : data.name;
     return newName;
   }
 
   getDescription(data, locale) {
-    const newDesc = locale !== 'en' && data[`description_${locale}`] ? data[`description_${locale}`] : data.description;
+    const newDesc = locale !== 'sv' && data[`description_${locale}`] ? data[`description_${locale}`] : data.description;
     return newDesc;
   }
 
   getSummary(data, locale) {
-    const newSum = locale !== 'en' && data[`summary_${locale}`] ? data[`summary_${locale}`] : data.summary;
+    const newSum = locale !== 'sv' && data[`summary_${locale}`] ? data[`summary_${locale}`] : data.summary;
     return newSum;
   }
 
