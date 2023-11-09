@@ -186,7 +186,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
         <div className="main-content flex">
 
 
-          <div className="text-content w-4/5">
+          <div className="text-content sm:w-full desktop:pr-0 desktop:w-4/5 desktop:pr-5">
             <PageTitle>
               <div dangerouslySetInnerHTML={{ __html: vid.name }} />
             </PageTitle>
@@ -197,35 +197,38 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
 
           </div>
 
-          <div className="w-1/5">
-            {!filteredBlogVideos.length && <p>No Videos found.</p>}
-            {filteredBlogVideos.map((video) => {
-              const thumbnails = video?.video_info?.thumbnail?.thumbnails;
-              const backgroundImage = thumbnails ? `url(${thumbnails[1]?.url})` : `url(${siteMetadata.socialBanner.url})`;
-              const containerStyle = {
-                backgroundImage,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                borderRadius: '0.5rem',
-              };
-              
-
-              return (
-                <div key={video?.id} className="col-auto sticky top-0 h-40" style={containerStyle}>
+          <div className="w-1/5 hidden md:block lg:block">
+            <div className="top-0 sticky">
+              {!filteredBlogVideos.length && <p>No Videos found.</p>}
+              {filteredBlogVideos.map((video) => {
+                const thumbnails = video?.video_info?.thumbnail?.thumbnails;
+                const backgroundImage = thumbnails ? `url(${thumbnails[1]?.url})` : `url(${siteMetadata.socialBanner.url})`;
+                const containerStyle = {
+                  backgroundImage,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  borderRadius: '0.5rem',
+                  display: 'flex',
                   
+                };
+
+
+                return (
+                  <div key={video?.id} className="col-auto h-40 mb-5 text-center" style={containerStyle}>
                     <h3 className="text-m font-bold leading-8 tracking-tight text-white">
                       <Link href={`/${video.slug}`} className="text-white">
                         {video?.name}
                       </Link>
                     </h3>
-                  
-                </div>
-              );
-            })}
+
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          
+
         </div>
       </div>
     </>

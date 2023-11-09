@@ -140,17 +140,30 @@ module.exports = {
                 color: theme('colors.gray.900'),
                 borderLeftColor: theme('colors.gray.200'),
               },
+              a: {
+                color: `${theme('colors.blue.400')} !important`,
+                '&:hover': {
+                  color: `${theme('colors.blue.400')} !important`,
+                },
+                code: { color: theme('colors.blue.400') },
+              },
+              li: {
+                paddingTop: '0px',
+                paddingBottom: '0px',
+                marginTop: '0px',
+                marginBottom: '0px',
+              },
             },
           },
           dark: {
             css: {
               color: theme('colors.gray.300'),
               a: {
-                color: theme('colors.primary.500'),
+                color: `${theme('colors.blue.400')} !important`,
                 '&:hover': {
-                  color: `${theme('colors.primary.400')} !important`,
+                  color: `${theme('colors.blue.400')} !important`,
                 },
-                code: { color: theme('colors.primary.400') },
+                code: { color: theme('colors.blue.400') },
               },
               h1: {
                 fontWeight: '700',
@@ -186,6 +199,12 @@ module.exports = {
               'ol li::marker': {
                 fontWeight: '600',
                 color: theme('colors.gray.400'),
+              },
+              li:{
+                paddingTop: '0px',
+                paddingBottom: '0px',
+                marginTop: '0px',
+                marginBottom: '0px',
               },
               'ul li::marker': {
                 backgroundColor: theme('colors.gray.400'),
