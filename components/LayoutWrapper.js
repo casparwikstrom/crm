@@ -10,7 +10,7 @@ import LanguageSwitcher from './LanguageSwitcher'
 
 const LayoutWrapper = ({ children, metaData }) => {
   return (
-    <SectionContainer>
+    <SectionContainer className="max-w-none">
       <div className="flex h-screen flex-col justify-between">
         <header className="flex items-center justify-between">
           <div>
@@ -49,7 +49,7 @@ const LayoutWrapper = ({ children, metaData }) => {
             <MobileNav />
           </div>
         </header>
-        <main className="mb-auto">{children}</main>
+        <main className="max-w-none">{children}</main>
         <Footer metaData={metaData} />
       </div>
     </SectionContainer>

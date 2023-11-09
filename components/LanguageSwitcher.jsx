@@ -7,7 +7,7 @@ import ReactFlagsSelect from 'react-flags-select';
 const LanguageSwitcher = () => {
   const router = useRouter();
   const { locale, locales, asPath } = router;
-  const [select, setSelect] = useState("US");
+  const [select, setSelect] = useState("SE");
 
   const onSelect = (code) => {
 

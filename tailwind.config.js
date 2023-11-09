@@ -1,11 +1,13 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
+const { join } = require('path');
 
 module.exports = {
   experimental: {
     optimizeUniversalDefaults: true,
   },
   content: [
+    join(__dirname, './pages/**/*.{js,ts,jsx,tsx}'),
     './pages/**/*.js',
     './pages/**/*.jsx',
     './components/**/*.js',
@@ -82,18 +84,22 @@ module.exports = {
                 fontWeight: '700',
                 letterSpacing: theme('letterSpacing.tight'),
                 color: theme('colors.gray.900'),
+                marginBottom: '0', // This sets the margin-bottom to 0
               },
               h2: {
                 fontWeight: '700',
                 letterSpacing: theme('letterSpacing.tight'),
                 color: theme('colors.gray.900'),
+                marginBottom: '0', // This sets the margin-bottom to 0
               },
               h3: {
                 fontWeight: '600',
                 color: theme('colors.gray.900'),
+                marginBottom: '0', // This sets the margin-bottom to 0
               },
               'h4,h5,h6': {
                 color: theme('colors.gray.900'),
+                marginBottom: '0', // This sets the margin-bottom to 0
               },
               pre: {
                 backgroundColor: theme('colors.gray.800'),
@@ -150,18 +156,22 @@ module.exports = {
                 fontWeight: '700',
                 letterSpacing: theme('letterSpacing.tight'),
                 color: theme('colors.gray.100'),
+                marginBottom: '0', // This sets the margin-bottom to 0
               },
               h2: {
                 fontWeight: '700',
                 letterSpacing: theme('letterSpacing.tight'),
                 color: theme('colors.gray.100'),
+                marginBottom: '0', // This sets the margin-bottom to 0
               },
               h3: {
                 fontWeight: '600',
                 color: theme('colors.gray.100'),
+                marginBottom: '0', // This sets the margin-bottom to 0
               },
               'h4,h5,h6': {
                 color: theme('colors.gray.100'),
+                marginBottom: '0', // This sets the margin-bottom to 0
               },
               pre: {
                 backgroundColor: theme('colors.gray.800'),

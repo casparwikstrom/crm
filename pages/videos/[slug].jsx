@@ -10,9 +10,12 @@ import Video from '../../models/Video';
 import Link from '@/components/Link'
 import classNames from 'classnames';
 import Image from '@/components/Image';
+import TOCInline from '@/components/TOCInline';
+import ScrollTopAndComment from '@/components/ScrollTopAndComment';
 
 const { publicRuntimeConfig } = getConfig()
-const isDevelopment = publicRuntimeConfig.isDevelopment
+// const isDevelopment = publicRuntimeConfig.isDevelopment
+const isDevelopment = false
 
 // const domain = process.env.DOMAIN_URL
 const domain = "crm"
@@ -31,13 +34,13 @@ function YouTubeVideo({ url }) {
 }
 
 export async function getStaticPaths() {
-  
+
   // Add the supported languages here
   const languages = ['sv', 'ro', 'es'];
 
   const v = await fetch(isDevelopment
-      ? `http://localhost:3001/api/v1/videos?domain=${domain}`
-      : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`
+    ? `http://localhost:3001/api/v1/videos?domain=${domain}`
+    : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`
   );
   const videos = await v.json();
 
@@ -66,10 +69,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params, locale }) {
-  
+
   const res = await fetch(isDevelopment
-      ? `http://localhost:3001/api/v1/videos/${params.slug}`
-      : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}`
+    ? `http://localhost:3001/api/v1/videos/${params.slug}`
+    : `https://you-b.herokuapp.com/api/v1/videos/${params.slug}`
   );
   const data = await res.json();
   const video = new Video(data, locale);
@@ -77,25 +80,28 @@ export async function getStaticProps({ params, locale }) {
 
   // Fetch all videos to find the index of the current video
   const allVideosRes = await fetch(isDevelopment
-      ? `http://localhost:3001/api/v1/videos?domain=${domain}`
-      : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`
+    ? `http://localhost:3001/api/v1/videos?domain=${domain}`
+    : `https://you-b.herokuapp.com/api/v1/videos?domain=${domain}`
   );
   const allVideos = await allVideosRes.json();
   const currentIndex = allVideos.findIndex((v) => v.slug === params.slug);
 
 
-  const filteredBlogVideos = allVideos.filter((frontMatter) => {
-    let searchContent = frontMatter["keywords"] && frontMatter["keywords"].length > 5
-      ? frontMatter["keywords"].slice(0, 5)
-      : [frontMatter.name];
+  const filteredBlogVideos = allVideos
+    .filter((video) => video.slug !== vid.slug) // Skip the current video
+    .filter((frontMatter) => {
+      let searchContent = frontMatter["keywords"] && frontMatter["keywords"].length > 0
+        ? frontMatter["keywords"]
+        : [frontMatter.name.toLowerCase()];
 
-    let searchValue = vid["keywords"] && vid["keywords"].length > 5
-      ? vid["keywords"].slice(0, 5)
-      : [vid.name];
+      let searchValue = vid["keywords"] && vid["keywords"].length > 0
+        ? vid["keywords"]
+        : [vid.name.toLowerCase()];
 
-    const regex = new RegExp(searchValue.join('|'), 'i');
-    return searchContent.some((element) => regex.test(element));
-  });
+      const regex = new RegExp(searchValue.join('|'), 'i');
+      return searchContent.some((element) => regex.test(element));
+    });
+
 
   // Get the next video/article based on the current index
   let nextVideo = allVideos[currentIndex + 1];
@@ -131,89 +137,99 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
 
   return (
     <>
-      <BlogSEO
-        vid_url={`${metaData.siteUrl}/${vid.slug}`}
-        // authorDetails={authorDetails}
-        type='article'
-        thumbnails={vid?.video_info?.thumbnail?.thumbnails}
-        metaData={metaData}
-        {...vid}
-      />
+      <div className="prose max-w-none">
+        <BlogSEO
+          vid_url={`${metaData.siteUrl}/${vid.slug}`}
+          // authorDetails={authorDetails}
+          type='article'
+          thumbnails={vid?.video_info?.thumbnail?.thumbnails}
+          metaData={metaData}
+          {...vid}
+        />
+        <ScrollTopAndComment />
 
-      <div className="flex justify-between">
-        {priorVideo && (
-          <div className="flex-shrink-0 flex-grow-0 w-1/2" style={{ maxWidth: '50%' }}>
-            <Link href={`/${priorVideo.slug}`}>
-              <div
-                className={classNames(
-                  'flex items-center mt-2 text-blue-500 hover:underline',
-                )}
-              >
-                <span className="mr-2">&larr;</span>
-                <h4 className="truncate">
-                  {priorVideo.name}
-                </h4>
-              </div>
-            </Link>
-          </div>
-        )}
-        {nextVideo && (
-          <div className="flex-shrink-0 flex-grow-0 w-1/2" style={{ maxWidth: '50%' }}>
-            <Link href={`/${nextVideo.slug}`}>
-              <div
-                className={classNames(
-                  'flex items-center mt-2 text-blue-500 hover:underline',
-                )}
-              >
-                <h4 className="truncate">
-                  {nextVideo.name}
-                </h4>
-                <span className="ml-2">&rarr;</span>
-              </div>
-            </Link>
-          </div>
-        )}
-      </div>
+        <div className="flex divide-x divide-gray-200">
 
-      <PageTitle>
-        <div dangerouslySetInnerHTML={{ __html: vid.name }} />
-      </PageTitle>
-      <div className="py-10" dangerouslySetInnerHTML={{ __html: vid.description }} />
-      <YouTubeVideo url={vid.url} />
-
-      <div className="py-10" dangerouslySetInnerHTML={{ __html: vid.summary }} />
-
-      {/* <div className="grid grid-cols-3 gap-4 grid-flow-row">
-        {!filteredBlogVideos.length && <p>No Videos found.</p>}
-        {filteredBlogVideos.map((video) => {
-          const thumbnails = video?.video_info?.thumbnail?.thumbnails;
-          const backgroundImage = thumbnails ? `url(${thumbnails[1]?.url})` : `url(${siteMetadata.socialBanner.url})`;
-          const containerStyle = {
-            backgroundImage,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            position: 'relative',
-            borderRadius: '0.5rem',
-          };
-
-          return (
-            <div key={video?.id} className="col-auto" style={containerStyle}>
-              <article>
-                <div className="absolute inset-0 flex justify-center items-end">
-                  <h3 className="text-m font-bold leading-8 tracking-tight text-white">
-                    <Link href={`/${video.slug}`} className="text-white">
-                      {video?.name}
-                    </Link>
-                  </h3>
+          {priorVideo && (
+            <div className="flex-shrink-0 flex-grow-0 w-1/2" style={{ maxWidth: '50%' }}>
+              <Link href={`/${priorVideo.slug}`}>
+                <div
+                  className={classNames(
+                    'flex items-center mt-2 text-blue-500 hover:underline',
+                  )}
+                >
+                  <span className="mr-2">&larr;</span>
+                  <h4 className="truncate">
+                    {priorVideo.name}
+                  </h4>
                 </div>
-              </article>
+              </Link>
             </div>
-          );
-        })}
-      </div> */}
+          )}
+          {nextVideo && (
+            <div className="flex-shrink-0 flex-grow-0 w-1/2" style={{ maxWidth: '50%' }}>
+              <Link href={`/${nextVideo.slug}`}>
+                <div
+                  className={classNames(
+                    'flex items-center mt-2 text-blue-500 hover:underline',
+                  )}
+                >
+                  <h4 className="truncate">
+                    {nextVideo.name}
+                  </h4>
+                  <span className="ml-2">&rarr;</span>
+                </div>
+              </Link>
+            </div>
+          )}
+        </div>
+        <div className="main-content flex">
 
+
+          <div className="text-content w-4/5">
+            <PageTitle>
+              <div dangerouslySetInnerHTML={{ __html: vid.name }} />
+            </PageTitle>
+            <div className="py-10" dangerouslySetInnerHTML={{ __html: vid.description }} />
+            <YouTubeVideo url={vid.url} />
+            <TOCInline toc={vid.toc} exclude="Excluded Section" />
+            <div className="py-10" dangerouslySetInnerHTML={{ __html: vid.summary }} />
+
+          </div>
+
+          <div className="w-1/5">
+            {!filteredBlogVideos.length && <p>No Videos found.</p>}
+            {filteredBlogVideos.map((video) => {
+              const thumbnails = video?.video_info?.thumbnail?.thumbnails;
+              const backgroundImage = thumbnails ? `url(${thumbnails[1]?.url})` : `url(${siteMetadata.socialBanner.url})`;
+              const containerStyle = {
+                backgroundImage,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                borderRadius: '0.5rem',
+              };
+              
+
+              return (
+                <div key={video?.id} className="col-auto sticky top-0 h-40" style={containerStyle}>
+                  
+                    <h3 className="text-m font-bold leading-8 tracking-tight text-white">
+                      <Link href={`/${video.slug}`} className="text-white">
+                        {video?.name}
+                      </Link>
+                    </h3>
+                  
+                </div>
+              );
+            })}
+          </div>
+
+          
+        </div>
+      </div>
     </>
+
   )
 }
 

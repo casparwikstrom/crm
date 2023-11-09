@@ -10,7 +10,8 @@ class Video {
     this.name = this.getName(data, locale);
     this.description = this.getDescription(data, locale);
     this.summary = this.getSummary(data, locale);
-    this.modifySummary();  // Call the method to modify the summary
+    this.toc = []; // Initialize an empty array for the table of contents
+    this.modifySummary();  // Call the method to modify the summary and generate TOC
     // add other properties as needed
   }
 
@@ -31,11 +32,44 @@ class Video {
 
   modifySummary() {
     if (this.summary) {
-      this.summary = this.summary.replace(/<h1>(\d)-([^<]+)<\/h1>/g, function (match, p1, p2) {
-        return `<h${p1}>${p2}</h${p1}>`;
-      });
+      const { modifiedSummary, toc } = this.generateTOCAndModifySummary(this.summary);
+      this.summary = modifiedSummary;
+      this.toc = toc; // Assign the generated TOC to the class property
     }
   }
+
+  generateTOCAndModifySummary(summary) {
+    const toc = [];
+    const modifiedSummary = summary.replace(/(\d+)-([^<]+)/g, (match, p1, p2) => {
+      // Check if the match includes a digit followed by a dash
+      // if (!match.includes('-')) {
+      //   return match; // If it doesn't include a dash, return the match unchanged
+      // }
+
+      const depth = parseInt(p1, 10); // Convert the digit(s) to an actual number
+
+      // Check if the depth is within the desired range of 2-5
+      if (depth < 2 || depth > 5) {
+        return match; // If it's not, return the match unchanged
+      }
+
+      const value = p2.trim();
+      const id = value.toLowerCase().replace(/\s+/g, '-')
+      
+      // Push an object representing the heading to the TOC array
+      toc.push({ value, depth, url: `#${id}` });
+
+      // Return the modified string with 'h' tags
+      return `<h${depth} id="${id}">${value}</h${depth}>`;
+    });
+
+    return { modifiedSummary, toc };
+  }
+
+
+
+
+
 }
 
 export default Video;
