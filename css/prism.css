@@ -27,8 +27,8 @@
 a {
   background-image: linear-gradient(
     to right,
-    #54b3d6,
-    #54b3d6 50%,
+    #0ea5e9,
+    #0ea5e9 50%,
     #000 50%
   );
   background-size: 200% 100%;
@@ -43,7 +43,7 @@ a {
 
 a:before {
   content: '';
-  background: #54b3d6;
+  background: #0ea5e9;
   display: block;
   position: absolute;
   bottom: -3px;
@@ -56,6 +56,10 @@ a:before {
 a:hover {
  background-position: 0;
 }
+
+/* a {
+  color: #0ea5e9 !important;
+} */
 
 a:hover::before {
   width:100%;

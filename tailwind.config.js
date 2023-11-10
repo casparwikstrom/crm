@@ -44,13 +44,14 @@ module.exports = {
         main: '15px',
       },
       colors: {
-        primary: colors.teal,
+        primary: colors.sky,
         gray: colors.neutral,
         border: '#D6D9E6',
         denim: '#022959',
         orange: '#FFAF7E',
         pink: '#F9818E',
         purple: '#483EFF',
+
         'light-blue': '#ABBCFF',
         'light-gray': '#D6D9E6',
         'red-errors': '#EE374A',
@@ -63,11 +64,11 @@ module.exports = {
         DEFAULT: {
           css: {
             a: {
-              color: `${theme('colors.primary.600')} !important`,
+              color: `${theme('colors.primary.500')}`,
               '&:hover': {
-                color: `${theme('colors.primary.600')} !important`,
+                color: `${theme('colors.primary.500')}`,
               },
-              code: { color: theme('colors.primary.400') },
+              code: { color: theme('colors.primary.500') },
             },
             h1: {
               fontWeight: '700',
@@ -132,13 +133,6 @@ module.exports = {
               padding: '1rem',
               borderRadius: '4px',
             },
-            a: {
-              color: `${theme('colors.blue.400')} !important`,
-              '&:hover': {
-                color: `${theme('colors.blue.400')} !important`,
-              },
-              code: { color: theme('colors.blue.400') },
-            },
             li: {
               paddingTop: '0px',
               paddingBottom: '0px',
@@ -150,11 +144,11 @@ module.exports = {
         dark: {
           css: {
             a: {
-              color: `${theme('colors.blue.400')} !important`,
+              color: `${theme('colors.primary.500')}`,
               '&:hover': {
-                color: `${theme('colors.blue.400')} !important`,
+                color: `${theme('colors.primary.500')}`,
               },
-              code: { color: theme('colors.blue.400') },
+              code: { color: theme('colors.primary.500') },
             },
             h1: {
               fontWeight: '700',

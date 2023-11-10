@@ -43,7 +43,7 @@ const TOCInline = ({
       {filteredToc.map((heading) => {
         return (
           <li key={heading.value} className={`${heading.depth >= indentDepth && 'ml-6'}`}>
-            <a href={heading.url}>{heading.value}</a>
+            <a className="text-primary-500" href={heading.url}>{heading.value}</a>
           </li>
         )
       })}

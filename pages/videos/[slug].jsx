@@ -155,7 +155,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
               <Link href={`/${priorVideo.slug}`}>
                 <div
                   className={classNames(
-                    'flex items-center mt-2 text-blue-500 hover:underline',
+                    'flex items-center mt-2 text-primary-500 hover:underline',
                   )}
                 >
                   <span className="mr-2">&larr;</span>
@@ -171,7 +171,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
               <Link href={`/${nextVideo.slug}`}>
                 <div
                   className={classNames(
-                    'flex items-center mt-2 text-blue-500 hover:underline',
+                    'flex items-center mt-2 text-primary-500 hover:underline',
                   )}
                 >
                   <h4 className="truncate">
