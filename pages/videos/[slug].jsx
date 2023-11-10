@@ -137,7 +137,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
 
   return (
     <>
-      <div className="prose max-w-none">
+      <div className="max-w-none">
         <BlogSEO
           vid_url={`${metaData.siteUrl}/${vid.slug}`}
           // authorDetails={authorDetails}
@@ -148,7 +148,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
         />
         <ScrollTopAndComment />
 
-        <div className="flex divide-x divide-gray-200">
+        <div className="flex">
 
           {priorVideo && (
             <div className="flex-shrink-0 flex-grow-0 w-1/2" style={{ maxWidth: '50%' }}>
@@ -184,16 +184,17 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
           )}
         </div>
         <div className="main-content flex">
-
-
           <div className="text-content sm:w-full desktop:pr-0 desktop:w-4/5 desktop:pr-5">
-            <PageTitle>
-              <div dangerouslySetInnerHTML={{ __html: vid.name }} />
+            <PageTitle >
+              {vid.name}
             </PageTitle>
             <div className="py-10" dangerouslySetInnerHTML={{ __html: vid.description }} />
             <YouTubeVideo url={vid.url} />
-            <TOCInline toc={vid.toc} exclude="Excluded Section" />
-            <div className="py-10" dangerouslySetInnerHTML={{ __html: vid.summary }} />
+            
+            <TOCInline className="py-6" toc={vid.toc} exclude="Excluded Section" />
+
+            <div className="prose dark:prose-dark dark:text-gray-300 py-10 prose max-w-none" dangerouslySetInnerHTML={{ __html: vid.summary }} />
+            
 
           </div>
 
@@ -210,7 +211,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
                   backgroundRepeat: 'no-repeat',
                   borderRadius: '0.5rem',
                   display: 'flex',
-                  
+                  alignItems: 'center',
                 };
 
 

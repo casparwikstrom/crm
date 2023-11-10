@@ -8,12 +8,12 @@ export default function Tag({ text }) {
 
 
       <Link href={{
-        pathname: `/videos`,
+        pathname: `/blogs`,
         query: {
           tags: text, // pass the id 
         },
       }}
-      as={`/videos?tags=${text}`}
+      as={`/blogs?tags=${text}`}
       >
       <a className="mr-3 text-sm font-medium uppercase text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
         {text.split(' ').join('-')}

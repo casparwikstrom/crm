@@ -1,6 +1,4 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
+
 
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
@@ -56,3 +54,4 @@ input:-webkit-autofill:focus {
 .fade-exit-active {
   transition: opacity 400ms, transform 400ms;
 }
+

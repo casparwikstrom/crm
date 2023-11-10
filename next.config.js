@@ -91,6 +91,14 @@ module.exports = withBundleAnalyzer({
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: '/blogs',
+        destination: '/videos', // This should match your folder structure
+      },
+    ];
+  },
   
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({

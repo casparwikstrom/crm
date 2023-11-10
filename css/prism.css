@@ -10,12 +10,12 @@
   border: solid 0.5px red;
 } */
 
-blockquote {
+/* blockquote {
   background-color: #deddff80;
   border-left: solid 5px #0800ff5c;
   padding: 1rem;
   border-radius: 4px;
-}
+} */
 
 .truncate {
   white-space: nowrap;
@@ -197,4 +197,32 @@ a:hover::before {
 
 .token.table {
   display: inline;
+}
+
+/* In your CSS or Tailwind CSS configuration */
+.custom-div .h2 {
+  /* Your h2 styles here */
+  color: white;
+  font-size: 2rem;
+}
+
+
+.custom-div .h3 {
+  /* Your h3 styles here */
+  color: white;
+  font-size: 1.2rem;
+}
+
+.custom-div .h4 {
+  /* Your h4 styles here */
+  color: white;
+  font-size: 2rem;
+}
+
+.custom-div blockquote {
+  /* Your blockquote styles here */
+}
+
+.custom-div li {
+  /* Your li styles here */
 }
