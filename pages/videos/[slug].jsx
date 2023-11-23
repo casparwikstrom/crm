@@ -198,8 +198,7 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
             <TOCInline className="py-6" toc={vid.toc} exclude="Excluded Section" />
 
             <div className="prose dark:prose-dark dark:text-gray-300 py-10 prose max-w-none" dangerouslySetInnerHTML={{ __html: vid.summary }} />
-            
-
+          
           </div>
 
           <div className="w-1/5 hidden md:block lg:block">
