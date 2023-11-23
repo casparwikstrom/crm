@@ -88,7 +88,7 @@ export async function getStaticProps({ params, locale }) {
 
 
   const filteredBlogVideos = allVideos
-    .filter((video) => video.slug !== vid.slug) // Skip the current video
+    .filter((video) => video.slug !== vid.slug) // Hoppa över den aktuella videon
     .filter((frontMatter) => {
       let searchContent = frontMatter["keywords"] && frontMatter["keywords"].length > 0
         ? frontMatter["keywords"]
@@ -98,8 +98,12 @@ export async function getStaticProps({ params, locale }) {
         ? vid["keywords"]
         : [vid.name.toLowerCase()];
 
-      const regex = new RegExp(searchValue.join('|'), 'i');
-      return searchContent.some((element) => regex.test(element));
+      if (searchContent && searchContent.length > 0 && searchValue && searchValue.length > 0) {
+        const regex = new RegExp(searchValue.join('|'), 'i');
+        return searchContent.some((element) => regex.test(element));
+      }
+      // Om någon av `keywords` är `null` eller tomma, returnera false
+      return false;
     });
 
 
