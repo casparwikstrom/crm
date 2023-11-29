@@ -62,7 +62,8 @@ const languages = ['sv', 'en', 'ro', 'es'];
             dom = 'https://crmproductreview.com';
             break;
         }
-        const cleanedRoute = route.startsWith('/videos') ? route.replace('/blog', '') : route;
+        
+        const cleanedRoute = route.startsWith('/videos/') ? route.replace('/videos', '') : route;
 
         return `
             <url>
