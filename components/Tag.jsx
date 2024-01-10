@@ -4,9 +4,6 @@ import kebabCase from '@/lib/utils/kebabCase'
 export default function Tag({ text }) {
 
   return (
-    // <Link href={`/videos?query=${text}`}>
-
-
       <Link href={{
         pathname: `/blogs`,
         query: {

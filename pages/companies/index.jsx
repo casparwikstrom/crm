@@ -6,13 +6,13 @@ import Grid from '@mui/joy/Grid';
 import CompanyCard from "@/components/custommui/customCard"
 import { FormContext } from '@/components/context/FormContext';
 import { StepContext } from '@/components/context/StepContext';
+import TaxCalculator from '@/components/tax/TaxCalculator';
 
 export default function Companies() {
   const { state } = useContext(FormContext);
   const { dispatchStep } = useContext(StepContext);
   const [companyData, setCompanyData] = useState([]);
  
-
 
   useEffect(() => {
     const endpoint = 'companies';
@@ -42,9 +42,12 @@ export default function Companies() {
   };
 
   return (
+    <div>
     <Grid container spacing={2}>
       {renderCompanyCards()}
     </Grid>
+       <TaxCalculator />
+    </div>
   );
 }
 

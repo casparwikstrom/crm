@@ -4,7 +4,7 @@ import { PageSEO } from '@/components/SEO'
 import getConfig from 'next/config'
 
 
-export const VIDEOS_PER_PAGE = 2
+export const VIDEOS_PER_PAGE = 5
 const { publicRuntimeConfig } = getConfig()
 const isDevelopment = publicRuntimeConfig.isDevelopment
 const domain = process.env.DOMAIN_URL
@@ -34,7 +34,7 @@ export default function Blog({ videos, initialDisplayVideos, pagination, metaDat
         videos={videos}
         initialDisplayVideos={initialDisplayVideos}
         pagination={pagination}
-        title="All Videos"
+        title="Alla Inlägg"
       />
     </>
   )

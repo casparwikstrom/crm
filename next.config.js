@@ -83,23 +83,24 @@ module.exports = withBundleAnalyzer({
   //     },
   //   ];
   // },
+
   async rewrites() {
     return [
+      {
+        source: '/blogs/page/:page',
+        destination: '/videos/page/:page', // This should match your folder structure
+      },
+      {
+        source: '/blogs',
+        destination: '/videos', // This should match your folder structure
+      },
       {
         source: '/:slug',
         destination: '/videos/:slug', // This should match your folder structure
       },
     ];
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/blogs',
-  //       destination: '/videos', // This should match your folder structure
-  //     },
-  //   ];
-  // },
-  
+
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
       test: /\.svg$/,

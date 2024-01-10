@@ -39,7 +39,7 @@ export default function Home({ videos, initialDisplayVideos, pagination, metaDat
         videos={videos}
         initialDisplayVideos={initialDisplayVideos}
         pagination={pagination}
-        title="All Videos"
+        title="Alla Inlägg"
       />
       {siteMetadata.newsletter.provider !== '' && (
         <div className="flex items-center justify-center pt-4">

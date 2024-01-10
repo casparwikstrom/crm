@@ -45,7 +45,7 @@ export async function getStaticProps(context) {
     currentPage: pageNumber,
     totalPages: Math.ceil(videos.length / VIDEOS_PER_PAGE),
   }
-
+  
   return {
     props: {
       videos,
@@ -63,7 +63,7 @@ export default function PostPage({ videos, initialDisplayVideos, pagination, met
         videos={videos}
         initialDisplayVideos={initialDisplayVideos}
         pagination={pagination}
-        title="All Videos"
+        title="Alla Inlägg"
       />
     </>
   )
