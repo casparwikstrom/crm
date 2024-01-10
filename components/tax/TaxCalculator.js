@@ -26,7 +26,6 @@ const brackets2023 = [
   },
 ];
 
-
 // Function to calculate the monthly tax reduction percentage
 function calculateMonthlyTaxReductionPercentage(monthlyIncome) {
   for (const bracket of brackets2023) {
