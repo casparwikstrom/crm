@@ -15,17 +15,29 @@ export async function getStaticPaths() {
   const videos = await res.json()
 
   const totalPages = Math.ceil(videos.length / VIDEOS_PER_PAGE)
-  const paths = Array.from({ length: totalPages }, (_, i) => ({
+  
+  const languages = ['en', 'ro', 'es'];
 
+  const paths = languages.flatMap((lang) =>
+    Array.from({ length: totalPages }, (_, i) => ({
+      params: {
+        page: (i + 1).toString(),
+      },
+      locale: lang,
+    }))
+  );
+
+  const swePaths = Array.from({ length: totalPages }, (_, i) => ({
     params: {
       page: (i + 1).toString(),
     },
-  }))
+    locale: 'sv',
+  }));
 
   return {
-    paths,
+    paths: [...paths, ...swePaths],
     fallback: false,
-  }
+  };
 }
 
 export async function getStaticProps(context) {
