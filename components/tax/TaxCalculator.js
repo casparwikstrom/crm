@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import swedenTax from '@/data/tax_data/swedenTax';
 
 // Define social security rate
 const socialSecurityRate = 0.3142;
@@ -81,6 +82,8 @@ export default function TaxCalculator() {
   const [salary, setSalary] = useState(null);
   const [error, setError] = useState('');
 
+  
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -88,7 +91,7 @@ export default function TaxCalculator() {
       setError('Please fill in all fields.');
       return;
     }
-
+debugger
     const result = calculateSalaryAndCost(
       Number(grossSalary),
       Number(municipalTaxRate),
@@ -108,12 +111,10 @@ export default function TaxCalculator() {
           type="number"
           required
         />
-        <FormField
-          label="Skattesats för din kommun"
+        <TaxRateDropdown
           value={municipalTaxRate}
-          onChange={(e) => setMunicipalTaxRate(e.target.value)}
-          type="number"
-          required
+          setMunicipalTaxRate={setMunicipalTaxRate}
+          swedenTax={swedenTax}
         />
         <FormField
           label="Ålder"
@@ -129,11 +130,18 @@ export default function TaxCalculator() {
       </form>
       {salary && (
         <div className="mt-4">
-          <h2 className="text-lg font-bold">Results</h2>
-          <p>Net Salary: {formatCurrency(salary.netSalary)}</p>
-          <p>Employer's Social Security Contributions: {formatCurrency(salary.deductions.socialSecurityContributions)}</p>
-          <p>Income Tax: {formatCurrency(salary.deductions.incomeTax)}</p>
-          <p>Total Cost to Employer: {formatCurrency(salary.totalCostToEmployer)}</p>
+          <h2 className="text-lg font-bold">Uträkning för din lön</h2>
+          <h3 className="bg-green-300 p-2 rounded">Lön innan skatt: <strong>{formatCurrency(salary.netSalary)}</strong></h3>
+          <h3 className="bg-blue-300 p-2 rounded">Sociala kostnader: <strong>{formatCurrency(salary.deductions.socialSecurityContributions)}</strong></h3>
+          <h3 className="bg-red-400 p-2 rounded">Skatt på din lön: <strong>{formatCurrency(salary.deductions.incomeTax)}</strong></h3> 
+          <h3 className="bg-yellow-300 p-2 rounded">Total kostnad för dig som arbetsgivare: <strong>{formatCurrency(salary.totalCostToEmployer)}</strong></h3>
+          <div>
+            <p>
+              <a href="https://www.fortnox.se/produkt/loneprogram/" target="_blank" className="underline">
+                Betala ut lönen lättare med Fortnox löneprogram
+              </a>
+            </p>
+          </div>
         </div>
       )}
     </div>
@@ -151,6 +159,32 @@ function FormField({ label, value, onChange, type, required }) {
         required={required}
         className="p-2 border border-gray-300 rounded"
       />
+    </label>
+  );
+}
+
+function TaxRateDropdown({ value, setMunicipalTaxRate, swedenTax }) {
+  
+  return (
+    <label className="flex flex-col">
+      Skattesats för din kommun
+      <select
+        value={value}
+        onChange={(e) => {
+          return setMunicipalTaxRate(e.target.value);
+        }}
+        required
+        className="p-2 border border-gray-300 rounded"
+      >
+        {swedenTax.map((item) => {
+          
+          return (
+            <option value={item.skatt} key={item.kommun}>
+              {item.kommun}
+            </option>
+          )
+        })}
+      </select>
     </label>
   );
 }
