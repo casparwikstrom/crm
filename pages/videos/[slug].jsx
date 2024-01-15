@@ -192,13 +192,17 @@ function Blog({ vid, metaData, nextVideo, priorVideo, filteredBlogVideos }) {
             <PageTitle >
               {vid.name}
             </PageTitle>
-            <div className="py-10" dangerouslySetInnerHTML={{ __html: vid.description }} />
+            <details className="dark:bg-gray-800">
+              <summary className="dark:text-gray-300text-x font-bold">*</summary>
+              <div className="ml-6 text-sm flex justify-center">This article can include affiliate links and we receive commission if you upgrade with this link</div>
+            </details>
+            <div className="py-2" dangerouslySetInnerHTML={{ __html: vid.description }} />
             <YouTubeVideo url={vid.url} />
             
             <TOCInline className="py-6" toc={vid.toc} exclude="Excluded Section" />
 
             <div className="prose dark:prose-dark dark:text-gray-300 py-10 prose max-w-none" dangerouslySetInnerHTML={{ __html: vid.summary }} />
-          
+            
           </div>
 
           <div className="w-1/5 hidden md:block lg:block">

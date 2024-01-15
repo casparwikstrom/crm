@@ -32,8 +32,8 @@ function calculateMonthlyTaxReductionPercentage(monthlyIncome) {
     const { incomeRange, deduction, reductionPercentage } = bracket;
     if (monthlyIncome >= incomeRange.min && monthlyIncome <= incomeRange.max) {
       // Calculate the monthly tax reduction percentage
-      let reduction = (monthlyIncome - deduction.base ) * (deduction.percentage / 100);
-      return reduction 
+      let reduction = (monthlyIncome - deduction.base) * (deduction.percentage / 100);
+      return reduction
     }
   }
 }
@@ -45,18 +45,21 @@ function calculateSalaryAndCost(grossSalary, municipalTaxRate, age) {
   // Calculate income tax
   const incomeTaxBeforeDeduction = grossSalary * (municipalTaxRate / 100);
 
+  const churchTax = grossSalary * (1 / 100);
+
   // Calculate job tax deduction
-  
+
   if (grossSalary > 50000) {
     const additionalTaxAmount = (grossSalary - 50000) * 0.18;
     incomeTaxBeforeDeduction += additionalTaxAmount;
   }
+
   const jobTaxDeduction = calculateMonthlyTaxReductionPercentage(grossSalary);
-  
+
   // Ensure that income tax is not less than zero after deduction
-  const incomeTax = Math.max(0, incomeTaxBeforeDeduction - jobTaxDeduction);
-  
-  
+  const incomeTax = Math.max(0, incomeTaxBeforeDeduction + churchTax - jobTaxDeduction);
+
+
   // Calculate net salary
   const netSalary = grossSalary - incomeTax;
   // Calculate total cost to employer
@@ -70,6 +73,7 @@ function calculateSalaryAndCost(grossSalary, municipalTaxRate, age) {
     deductions: {
       socialSecurityContributions,
       incomeTax,
+      churchTax
     },
   };
 }
@@ -77,11 +81,22 @@ function calculateSalaryAndCost(grossSalary, municipalTaxRate, age) {
 export default function TaxCalculator() {
   const [grossSalary, setGrossSalary] = useState('');
   const [municipalTaxRate, setMunicipalTaxRate] = useState('');
+  const [churchTax, setChurchTax] = useState('');
   const [age, setAge] = useState('');
   const [salary, setSalary] = useState(null);
   const [error, setError] = useState('');
 
-  
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+    if (event.target.checked) {
+      setChurchTax(prevRate => prevRate + 1);
+    } else {
+      setChurchTax(prevRate => prevRate - 1);
+    }
+  };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -90,7 +105,6 @@ export default function TaxCalculator() {
       setError('Please fill in all fields.');
       return;
     }
-debugger
     const result = calculateSalaryAndCost(
       Number(grossSalary),
       Number(municipalTaxRate),
@@ -115,6 +129,14 @@ debugger
           setMunicipalTaxRate={setMunicipalTaxRate}
           swedenTax={swedenTax}
         />
+        <div>
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+          />
+          <label> Är du med i Svenska Kyrkan</label>
+        </div>
         <FormField
           label="Ålder"
           value={age}
@@ -132,7 +154,8 @@ debugger
           <h2 className="text-lg font-bold">Uträkning för din lön</h2>
           <h3 className="bg-green-300 p-2 rounded">Lön innan skatt: <strong>{formatCurrency(salary.netSalary)}</strong></h3>
           <h3 className="bg-blue-300 p-2 rounded">Sociala kostnader: <strong>{formatCurrency(salary.deductions.socialSecurityContributions)}</strong></h3>
-          <h3 className="bg-red-400 p-2 rounded">Skatt på din lön: <strong>{formatCurrency(salary.deductions.incomeTax)}</strong></h3> 
+          <h3 className="bg-red-400 p-2 rounded">Skatt på din lön: <strong>{formatCurrency(salary.deductions.incomeTax)}</strong></h3>
+          <h3 className="bg-grey-400 p-2 rounded">Kyrkoskatt på din lön: <strong>{formatCurrency(salary.deductions.churchTax)}</strong></h3>
           <h3 className="bg-yellow-300 p-2 rounded">Total kostnad för dig som arbetsgivare: <strong>{formatCurrency(salary.totalCostToEmployer)}</strong></h3>
           <div>
             <p>
@@ -163,7 +186,7 @@ function FormField({ label, value, onChange, type, required }) {
 }
 
 function TaxRateDropdown({ value, setMunicipalTaxRate, swedenTax }) {
-  
+
   return (
     <label className="flex flex-col">
       Skattesats för din kommun
@@ -176,7 +199,6 @@ function TaxRateDropdown({ value, setMunicipalTaxRate, swedenTax }) {
         className="p-2 border border-gray-300 rounded"
       >
         {swedenTax.map((item) => {
-          
           return (
             <option value={item.skatt} key={item.kommun}>
               {item.kommun}
