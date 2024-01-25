@@ -1,7 +1,7 @@
 "use-client"
 import React, { useEffect, useState, useContext } from 'react';
 import Button from '@mui/joy/Button';
-import { genericCall } from '../api/api'; // Import the genericCall function
+import { genericCall } from '../../lib/utils/api/api'; // Import the genericCall function
 import Grid from '@mui/joy/Grid';
 import CompanyCard from "@/components/custommui/customCard"
 import { FormContext } from '@/components/context/FormContext';

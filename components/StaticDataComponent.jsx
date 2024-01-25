@@ -1,31 +1,11 @@
-import { useEffect, useState } from 'react';
-import Video from "../models/Video";
-import { genericCall } from "../pages/api/api";
+// components/StaticDataComponent.jsx
 import { BlogSEO } from '@/components/SEO';
 import ScrollTopAndComment from '@/components/ScrollTopAndComment';
 
-function SSRComponent({ slug, metaData }) {
-  const [vid, setVid] = useState(null);
-  const isDevelopment = process.env.NODE_ENV === 'development'
-
-  useEffect(() => {
-    const endpoint = `videos/${slug}`;
-    const baseUrl = 'https://you-b.herokuapp.com/api/v1'
-    /* http://localhost:3001/api/v1/videos/amazon-fba-beginners-4-steps-start-selling-amazon */
-    const sortParams = { slug: slug }
-    genericCall(endpoint, 'GET', null, sortParams, baseUrl)
-      .then((response) => {
-        // const data = await res.json();
-        const video = new Video(response, 'sv');
-        setVid(Object.assign({}, video));
-      })
-      .catch((error) => {
-        console.error('Error fetching company data:', error);
-      });
-  }, []);
 
 
-  if (vid === null) {
+function StaticDataComponent({ vid, metaData }) {
+  if (!vid) {
     return <div>Loading...</div>;
   }
 
@@ -49,6 +29,7 @@ function SSRComponent({ slug, metaData }) {
             </details> */}
             <div className="py-2" dangerouslySetInnerHTML={{ __html: vid.description }} />
             <div className="prose dark:prose-dark dark:text-gray-300 py-10 prose max-w-none" dangerouslySetInnerHTML={{ __html: vid.summary }} />
+            
           </div>
         </div>
       </div>
@@ -56,4 +37,5 @@ function SSRComponent({ slug, metaData }) {
   );
 }
 
-export default SSRComponent;
+export default StaticDataComponent;
+
