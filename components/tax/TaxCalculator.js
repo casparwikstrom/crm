@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import swedenTax from '@/data/tax_data/swedenTax';
 
@@ -38,14 +37,14 @@ function calculateMonthlyTaxReductionPercentage(monthlyIncome) {
   }
 }
 // Function to calculate net salary and total cost to employer
-function calculateSalaryAndCost(grossSalary, municipalTaxRate, age) {
+function calculateSalaryAndCost(grossSalary, municipalTaxRate, churchTaxRate, age) {
   // Calculate employer's social security contributions
   const socialSecurityContributions = grossSalary * socialSecurityRate;
 
   // Calculate income tax
   const incomeTaxBeforeDeduction = grossSalary * (municipalTaxRate / 100);
-
-  const churchTax = grossSalary * (1 / 100);
+  
+  const churchTax = grossSalary * (churchTaxRate / 100);
 
   // Calculate job tax deduction
 
@@ -81,7 +80,7 @@ function calculateSalaryAndCost(grossSalary, municipalTaxRate, age) {
 export default function TaxCalculator() {
   const [grossSalary, setGrossSalary] = useState('');
   const [municipalTaxRate, setMunicipalTaxRate] = useState('');
-  const [churchTax, setChurchTax] = useState('');
+  const [churchTaxRate, setChurchTax] = useState(false);
   const [age, setAge] = useState('');
   const [salary, setSalary] = useState(null);
   const [error, setError] = useState('');
@@ -91,12 +90,12 @@ export default function TaxCalculator() {
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
     if (event.target.checked) {
+      console.log()
       setChurchTax(prevRate => prevRate + 1);
     } else {
       setChurchTax(prevRate => prevRate - 1);
     }
   };
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -108,6 +107,7 @@ export default function TaxCalculator() {
     const result = calculateSalaryAndCost(
       Number(grossSalary),
       Number(municipalTaxRate),
+      Number(churchTaxRate),
       Number(age)
     );
     setSalary(result);
@@ -117,6 +117,7 @@ export default function TaxCalculator() {
   return (
     <div className="container mx-auto p-4">
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+        
         <FormField
           label="Lön Innan skatt"
           value={grossSalary}
