@@ -21,7 +21,7 @@ function StaticDataComponent({ vid, metaData }) {
           {...vid}
         />
         <ScrollTopAndComment />
-        <div className="main-content">
+        <div className="main-content flex justify-center">
           <div className="text-content sm:w-full desktop:pr-0 desktop:w-4/5 desktop:pr-5">
             {/* <details className="dark:bg-gray-800">
               <summary className="dark:text-gray-300text-x font-bold">*</summary>

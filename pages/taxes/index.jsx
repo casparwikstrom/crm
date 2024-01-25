@@ -6,7 +6,7 @@ import TaxCalculator from "@/components/tax/TaxCalculator"
 export default function TaxesPage({ vid, metaData }) {
   return (
     <div>
-      <TaxCalculator />,
+      <TaxCalculator />
       <StaticDataComponent vid={vid} metaData={metaData} />
     </div>
   
